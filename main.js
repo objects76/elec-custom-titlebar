@@ -21,7 +21,7 @@ function createWindow() {
     // and load the index.html of the app.
 
     if (process.env.NODE_ENV === 'dev')
-        mainWindow.loadURL('http://localhost:5500/src-start/')
+        mainWindow.loadURL('http://localhost:5500/')
     else
         mainWindow.loadFile('index.html');
     // Open the DevTools.

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS Align Center</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      .container {
+        border: 5px solid gray;
+        width: 70%;
+        height: 70%;
+        background-color: green;
+        margin: 40px auto;
+        overflow: hidden;
+      }
+
+      .outter {
+        border: 1px solid red;
+        display: table;
+        width: 100%;
+        height: 100%;
+      }
+      .inner {
+        border: 5px solid yellow;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+      }
+      .centered {
+        background: orange;
+        position: relative;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="outter">
+        <div class="inner">
+          <div class="centered">
+            <p>Hello...a asdfl asdf dasf asdfasdf adfasfdasd</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

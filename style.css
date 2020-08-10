@@ -32,25 +32,24 @@ body {
   padding: 4px;
   color: #fff; }
   #titlebar #drag-region {
-    display: grid;
     width: 100%;
     height: 100%;
     -webkit-app-region: drag;
-    grid-template-columns: auto 138px; }
+    display: grid;
+    grid-template-columns: 16px auto 138px;
+    grid-auto-rows: 22px; }
 
 #app-icon {
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  padding: 6px;
-  left: 0;
-  top: 0; }
+  grid-column: 1; }
+  #app-icon img {
+    margin: -3px;
+    height: 130%; }
 
 #caption {
-  grid-column: 1;
+  grid-column: 2;
+  margin: 0 15px;
   display: flex;
   align-items: center;
-  margin-left: 30px;
   overflow: hidden;
   font-family: "Segoe UI", sans-serif;
   font-size: 0.75rem; }
@@ -58,7 +57,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    line-height: 1.5; }
+    line-height: 1.5rem; }
 
 #sys-btns {
   display: grid;
@@ -98,13 +97,6 @@ body {
   #sys-btns .icon {
     width: 10px;
     height: 10px; } }
-
-.maximized #titlebar {
-  width: 100%;
-  padding: 0; }
-
-.maximized #window-title {
-  margin-left: 12px; }
 
 .maximized #restore-button {
   display: flex !important; }

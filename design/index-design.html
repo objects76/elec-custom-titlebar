@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>Custom titlebar</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
   </head>
 
   <body>
     <header id="titlebar">
       <div id="drag-region">
         <div id="app-icon">
-          <img src="icons/code_70x70.png" draggable="false" />
+          <img src="../icons/code_70x70.png" draggable="false" />
         </div>
         <div id="caption">
           <span
@@ -20,19 +20,19 @@
 
         <div id="sys-btns">
           <div class="button" id="min-button">
-            <img class="icon" src="icons/min-w-10.png" draggable="false" />
+            <img class="icon" src="../icons/min-w-10.png" draggable="false" />
           </div>
 
           <div class="button" id="max-button">
-            <img class="icon" src="icons/max-w-10.png" draggable="false" />
+            <img class="icon" src="../icons/max-w-10.png" draggable="false" />
           </div>
 
           <div class="button" id="restore-button">
-            <img class="icon" src="icons/restore-w-10.png" draggable="false" />
+            <img class="icon" src="../icons/restore-w-10.png" draggable="false" />
           </div>
 
           <div class="button" id="close-button">
-            <img class="icon" src="icons/close-w-10.png" draggable="false" />
+            <img class="icon" src="../icons/close-w-10.png" draggable="false" />
           </div>
         </div>
       </div>
@@ -90,8 +90,19 @@
       >
     </div>
     <script>
-      // You can also require other files to run in this process
-      require("./renderer.js");
+      document.getElementById("min-button").addEventListener("click", (event) => {});
+
+      document.getElementById("max-button").addEventListener("click", (event) => {
+        document.body.classList.add("maximized");
+      });
+
+      document.getElementById("restore-button").addEventListener("click", (event) => {
+        document.body.classList.remove("maximized");
+      });
+
+      document.getElementById("close-button").addEventListener("click", (event) => {
+        win.close();
+      });
     </script>
   </body>
 </html>

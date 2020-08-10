@@ -2,13 +2,16 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
+    <title>Custom titlebar</title>
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
     <header id="titlebar">
       <div id="drag-region">
+        <div id="app-icon">
+          <img src="icons/app.png" draggable="false" style="width: 100%;" />
+        </div>
         <div id="caption">
           <span
             >Test Custom Titlebar in Electron.est Custom Titlebar in Electron.est Custom Titlebar in Electron.
@@ -36,7 +39,7 @@
     </header>
 
     <div id="main">
-      <h1>Hello World!</h1>
+      <h1>Content here!</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque hendrerit nulla ut libero varius sollicitudin.
         Morbi suscipit pretium velit id dictum. Curabitur congue faucibus lorem vel placerat. Morbi id sapien ut leo

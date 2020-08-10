@@ -1,10 +1,11 @@
-html {
-  box-sizing: border-box; }
-
 *,
 *:before,
 *:after {
-  box-sizing: inherit; }
+  box-sizing: inherit;
+  user-select: none; }
+
+html {
+  box-sizing: border-box; }
 
 html,
 body {
@@ -24,7 +25,7 @@ body {
 #titlebar {
   display: block;
   position: fixed;
-  height: 32px;
+  height: 30px;
   width: calc(100% - 2px);
   /*Compensate for body 1px border*/
   background: #254053;
@@ -37,11 +38,19 @@ body {
     -webkit-app-region: drag;
     grid-template-columns: auto 138px; }
 
+#app-icon {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+  left: 0;
+  top: 0; }
+
 #caption {
   grid-column: 1;
   display: flex;
   align-items: center;
-  margin-left: 8px;
+  margin-left: 30px;
   overflow: hidden;
   font-family: "Segoe UI", sans-serif;
   font-size: 0.75rem; }

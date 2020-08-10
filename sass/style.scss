@@ -1,13 +1,16 @@
 @import "./_utils";
 
-html {
-  box-sizing: border-box;
-}
 *,
 *:before,
 *:after {
   box-sizing: inherit;
+  user-select: none;
 }
+
+html {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
@@ -29,7 +32,7 @@ body {
 #titlebar {
   display: block;
   position: fixed;
-  height: 32px;
+  height: 30px;
   width: calc(100% - 2px); /*Compensate for body 1px border*/
   background: #254053;
   padding: 4px;
@@ -44,11 +47,20 @@ body {
   }
 }
 
+#app-icon {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+  left: 0;
+  top: 0;
+}
+
 #caption {
   grid-column: 1;
   display: flex;
   align-items: center;
-  margin-left: 8px;
+  margin-left: 30px;
   overflow: hidden;
   font-family: "Segoe UI", sans-serif;
   // font-size: calc(12 / 16) rem;

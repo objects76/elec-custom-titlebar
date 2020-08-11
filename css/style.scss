@@ -7,6 +7,11 @@
   user-select: none;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 html {
   box-sizing: border-box;
 }
@@ -29,133 +34,164 @@ body {
   color: #fff;
 }
 
+$TITLEBAR_BG: #254053;
+$COLOR: lightgray;
+$SEL_BG: #3b5365;
 $TITLEBAR_HEIGHT: 32px;
 $APPICON_SIZE: 30px;
 
 #titlebar {
+  font-family: "Segoe UI", sans-serif;
+  padding: 0;
+  margin: 0;
   display: block;
   position: fixed;
   height: $TITLEBAR_HEIGHT;
   width: calc(100% - 2px); /*Compensate for body 1px border*/
-  background: #254053;
-  padding: 4px;
-  color: #fff;
+  background: $TITLEBAR_BG;
+  //padding: 4px; // for more drag region.
+  color: $COLOR;
 
   #drag-region {
+    padding: 0;
+    margin: 0;
     width: 100%;
     height: 100%;
     -webkit-app-region: drag;
     display: grid;
-    grid-template-columns: $APPICON_SIZE 180px auto 138px;
-    grid-auto-rows: ($TITLEBAR_HEIGHT - 8);
+    grid-template-columns: $APPICON_SIZE fit-content(300px) auto fit-content(200px);
+    grid-auto-rows: ($TITLEBAR_HEIGHT - 0);
   }
 }
 
 #app-icon {
   grid-column: 1;
   img {
-    margin: -3px;
-    height: 130%;
+    // vertical-align: middle;
+    // margin: -3px;
+    height: 100%;
   }
 }
 
-#sys-menus {
+.nav-area {
   grid-column: 2;
-
-  position: absolute;
-  height: 100%;
-  top: 0;
-  left: $APPICON_SIZE;
-  margin: 0;
+  -webkit-app-region: no-drag;
+  margin-left: 10px;
+  $SHOW_DELAY: 300ms;
+  $HIDE_DELAY: 600ms;
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
   ul {
-    display: table;
-    font-size: 0.8rem;
-    // list-style-type: none;
-    margin: 0;
-    overflow: hidden;
     height: 100%;
-    li {
-      padding: 10px;
-      display: table-cell;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background: $TITLEBAR_BG;
+  }
+  li {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+  }
 
-      margin: 0;
-      height: 100%;
-      // .dropdown > .dropbtn(Root menu) > .dropdown-content
-      -webkit-app-region: no-drag;
-      // float: left;
-      span {
-        margin: 0;
-        padding: 6px 8px;
-      }
+  // root menu-item
+  ul a {
+    color: $COLOR;
+    height: 100%;
+    background: $TITLEBAR_BG;
+    text-decoration: none;
+    padding: 7px 8px;
+    display: block;
+  }
 
-      // padding: 6px 8px;
-      display: inline-block;
-      text-align: center;
-      text-decoration: none;
-      color: white;
+  ul ul {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+  // submenu-item
+  ul ul a {
+    padding: 7px 26px;
+  }
+  .root-items > li {
+    float: left;
+    position: relative;
+  }
 
-      &:hover {
-        background-color: orangered;
-      }
+  // ul li a {
+  //   background: $TITLEBAR_BG;
+  //   text-decoration: none;
+  //   color: #fff;
+  //   padding: 4px 10px;
+  //   display: block;
+  // }
 
-      .dropdown:hover .dropbtn {
-        background-color: green;
-      }
+  // all a under hovered li in .nav-area ul.
+  ul a:hover {
+    background: $SEL_BG;
+  }
 
-      // .dropdown {
-      //   display: block;
-      // }
+  // all sub menu-block. [NOT DISPLAYED]
+  ul ul {
+    display: none;
+    position: absolute;
+    min-width: 250px;
+    top: 100%;
+    left: 0;
+  }
+  // first submenu. [DISPLAYED]
+  // ul > li.opened > ul {
+  //   // with js
+  //   display: block;
+  // }
+  // ul > li:focus-within > ul {
+  //   display: block;
+  // }
+  ul > li:hover > ul {
+    display: block;
+  }
 
-      .dropdown-content {
-        display: block;
-        position: absolute;
-        top: $TITLEBAR_HEIGHT;
-        background-color: #34434e;
-        min-width: 200px;
-        //box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-        // margin: 16px 0;
+  // second submenu animation. [NOT DISPLAYED]
+  ul ul ul {
+    display: block;
+    visibility: hidden;
+    transition-property: visibility;
+    transition-delay: $HIDE_DELAY;
 
-        .divider {
-          border-top: solid 1px gray;
-          // clear: both;
-          height: 1px;
-          padding: 0;
-          margin: 0 10px;
-        }
+    top: -6px;
+    left: calc(100% - 0px);
+    padding: -6px 0;
+  }
 
-        li {
-          display: block;
-          margin: 4px 0;
-          padding: 2px 26px;
-          text-decoration: none;
-          text-align: left;
-        }
+  // .nav-area ul li:hover > ul {
+  //   display: block;
+  // }
 
-        a:hover {
-          background-color: #f1f1f156;
-        }
-        .disabled {
-          color: darkgray;
-          &:hover {
-            background-color: transparent;
-          }
-        }
-      }
+  // show second submenu. [DISPLAY]
+  ul ul li:hover > ul {
+    display: block;
 
-      .dropdown:hover {
-        .dropdown-content {
-          display: block;
-        }
-      }
-    }
+    visibility: visible;
+    transition-property: visibility;
+    transition-delay: $SHOW_DELAY;
+  }
+  // first submenu item
+  // .nav-area ul ul li:hover a {
+  //   background: #262626;
+  // }
+
+  ul ul li {
+    position: relative;
+  }
+
+  // second submenu item.
+  ul ul ul li:hover a {
+    background: $SEL_BG;
   }
 }
 
 #caption {
   // background-color: orange;
   grid-column: 3;
-  margin: 0 ($TITLEBAR_HEIGHT * 15/30);
+  margin: 4px 4px;
   display: flex;
   justify-content: center;
   // align-items: center;
@@ -173,12 +209,13 @@ $APPICON_SIZE: 30px;
 }
 #sys-btns {
   grid-column: 4;
+  z-index: 100;
   display: grid;
   grid-template-columns: repeat(3, 46px);
-  position: absolute;
-  height: 100%;
-  top: 0;
-  right: 0;
+  // position: absolute;
+  // height: 100%;
+  // top: 0;
+  // right: 0;
 
   -webkit-app-region: no-drag;
 
@@ -222,18 +259,6 @@ $APPICON_SIZE: 30px;
   display: none !important;
 }
 
-@media (-webkit-device-pixel-ratio: 1.5),
-  (device-pixel-ratio: 1.5),
-  (-webkit-device-pixel-ratio: 2),
-  (device-pixel-ratio: 2),
-  (-webkit-device-pixel-ratio: 3),
-  (device-pixel-ratio: 3) {
-  #sys-btns .icon {
-    width: 10px;
-    height: 10px;
-  }
-}
-
 .maximized {
   // #titlebar {
   //   width: 100%;
@@ -253,6 +278,17 @@ $APPICON_SIZE: 30px;
   }
 }
 
+@media (-webkit-device-pixel-ratio: 1.5),
+  (device-pixel-ratio: 1.5),
+  (-webkit-device-pixel-ratio: 2),
+  (device-pixel-ratio: 2),
+  (-webkit-device-pixel-ratio: 3),
+  (device-pixel-ratio: 3) {
+  #sys-btns .icon {
+    width: 10px;
+    height: 10px;
+  }
+}
 // content sections
 #main {
   height: calc(100% - 32px);

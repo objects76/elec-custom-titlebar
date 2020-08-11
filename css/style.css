@@ -72,7 +72,7 @@ body {
   height: 100%;
 }
 
-.nav-area {
+#menubar {
   -ms-grid-column: 2;
   grid-column: 2;
   -webkit-app-region: no-drag;
@@ -82,7 +82,7 @@ body {
   display: block;
 }
 
-.nav-area ul {
+#menubar ul {
   height: 100%;
   padding: 0;
   margin: 0;
@@ -90,18 +90,7 @@ body {
   background: #254053;
 }
 
-.nav-area li {
-  padding: 0;
-  margin: 0;
-  height: 100%;
-}
-
-.nav-area .root-items > li {
-  float: left;
-  position: relative;
-}
-
-.nav-area ul a {
+#menubar ul a {
   color: lightgray;
   height: 100%;
   background: #254053;
@@ -110,29 +99,37 @@ body {
   display: block;
 }
 
-.nav-area ul ul {
-  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+#menubar ul li {
+  padding: 0;
+  margin: 0;
+  height: 100%;
 }
 
-.nav-area ul ul a {
-  padding: 7px 26px;
-}
-
-.nav-area ul ul .separator {
+#menubar .separator {
   border-top: 1px solid darkgray;
   height: 1px;
 }
 
-.nav-area .disabled {
+#menubar .disabled {
   color: darkgray;
 }
 
-.nav-area li a:not(.disabled):hover {
+#menubar li a:not(.disabled):hover {
   background: #3b5365;
 }
 
-.nav-area ul ul {
+#menubar > ul > li {
+  float: left;
+  position: relative;
+}
+
+#menubar > ul.opened > li:hover > ul {
+  display: block;
+}
+
+#menubar ul ul {
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   display: none;
   position: absolute;
   min-width: 250px;
@@ -140,11 +137,15 @@ body {
   left: 0;
 }
 
-.nav-area ul.opened > li:hover > ul {
-  display: block;
+#menubar ul ul a {
+  padding: 7px 26px;
 }
 
-.nav-area ul ul ul {
+#menubar ul ul li {
+  position: relative;
+}
+
+#menubar ul ul li ul {
   display: block;
   visibility: hidden;
   -webkit-transition-property: visibility;
@@ -156,21 +157,13 @@ body {
   padding: -6px 0;
 }
 
-.nav-area ul ul li:hover > ul {
+#menubar ul ul li:hover > ul {
   display: block;
   visibility: visible;
   -webkit-transition-property: visibility;
   transition-property: visibility;
   -webkit-transition-delay: 300ms;
           transition-delay: 300ms;
-}
-
-.nav-area ul ul li {
-  position: relative;
-}
-
-.nav-area ul ul ul li:hover a {
-  background: #3b5365;
 }
 
 #caption {

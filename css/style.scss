@@ -34,11 +34,11 @@ body {
   color: #fff;
 }
 
-$TITLEBAR_BG: #254053;
-$COLOR: lightgray;
-$SEL_BG: #3b5365;
-$TITLEBAR_HEIGHT: 32px;
-$APPICON_SIZE: 30px;
+$BG-COLOR: #254053;
+$FG-COLOR: lightgray;
+$SELECTED-MENUITEM: #3b5365;
+$TITLEBAR-HEIGHT: 32px;
+$APPICON-SIZE: $TITLEBAR-HEIGHT - 2px;
 
 #titlebar {
   font-family: "Segoe UI", sans-serif;
@@ -46,11 +46,11 @@ $APPICON_SIZE: 30px;
   margin: 0;
   display: block;
   position: fixed;
-  height: $TITLEBAR_HEIGHT;
+  height: $TITLEBAR-HEIGHT;
   width: calc(100% - 2px); /*Compensate for body 1px border*/
-  background: $TITLEBAR_BG;
+  background: $BG-COLOR;
   //padding: 4px; // for more drag region.
-  color: $COLOR;
+  color: $FG-COLOR;
 
   #drag-region {
     padding: 0;
@@ -59,8 +59,8 @@ $APPICON_SIZE: 30px;
     height: 100%;
     -webkit-app-region: drag;
     display: grid;
-    grid-template-columns: $APPICON_SIZE fit-content(300px) auto fit-content(200px);
-    grid-auto-rows: ($TITLEBAR_HEIGHT - 0);
+    grid-template-columns: $APPICON-SIZE fit-content(300px) auto fit-content(200px);
+    grid-auto-rows: ($TITLEBAR-HEIGHT - 0);
   }
 }
 
@@ -73,7 +73,7 @@ $APPICON_SIZE: 30px;
   }
 }
 
-.nav-area {
+#menubar {
   grid-column: 2;
   -webkit-app-region: no-drag;
   margin-left: 10px;
@@ -83,110 +83,90 @@ $APPICON_SIZE: 30px;
   text-overflow: ellipsis;
   display: block;
 
+  // global shapes.
   ul {
     height: 100%;
     padding: 0;
     margin: 0;
     list-style: none;
-    background: $TITLEBAR_BG;
+    background: $BG-COLOR;
+    a {
+      color: $FG-COLOR;
+      height: 100%;
+      background: $BG-COLOR;
+      text-decoration: none;
+      padding: 7px 8px;
+      display: block;
+    }
+
+    li {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
   }
-  li {
-    padding: 0;
-    margin: 0;
-    height: 100%;
+
+  .separator {
+    border-top: 1px solid darkgray;
+    height: 1px;
+  }
+  .disabled {
+    color: darkgray;
+  }
+  // selection
+  li a:not(.disabled):hover {
+    background: $SELECTED-MENUITEM;
   }
 
   // root menu-item
-  .root-items > li {
+  & > ul > li {
     float: left;
     position: relative;
   }
 
-  ul a {
-    color: $COLOR;
-    height: 100%;
-    background: $TITLEBAR_BG;
-    text-decoration: none;
-    padding: 7px 8px;
+  // first submenu. [DISPLAYED]
+  & > ul.opened > li:hover > ul {
     display: block;
   }
 
+  // all submenu container(not horizental menubar).
   ul ul {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     // submenu-item
     a {
       padding: 7px 26px;
     }
-    .separator {
-      border-top: 1px solid darkgray;
-      height: 1px;
-    }
-  }
 
-  // ul li a {
-  //   background: $TITLEBAR_BG;
-  //   text-decoration: none;
-  //   color: #fff;
-  //   padding: 4px 10px;
-  //   display: block;
-  // }
-  .disabled {
-    color: darkgray;
-  }
-  // all a under hovered li in .nav-area ul.
-  li a:not(.disabled):hover {
-    background: $SEL_BG;
-  }
-
-  // all sub menu-block. [NOT DISPLAYED]
-  ul ul {
+    // all sub menu-block. [NOT DISPLAYED]
     display: none;
     position: absolute;
     min-width: 250px;
     top: 100%;
     left: 0;
   }
-  // first submenu. [DISPLAYED]
-  ul.opened > li:hover > ul {
-    display: block;
-  }
 
-  // second submenu animation. [NOT DISPLAYED]
-  ul ul ul {
-    display: block;
-    visibility: hidden;
-    transition-property: visibility;
-    transition-delay: $HIDE_DELAY;
-
-    top: -6px;
-    left: calc(100% - 0px);
-    padding: -6px 0;
-  }
-
-  // .nav-area ul li:hover > ul {
-  //   display: block;
-  // }
-
-  // show second submenu. [DISPLAY]
-  ul ul li:hover > ul {
-    display: block;
-
-    visibility: visible;
-    transition-property: visibility;
-    transition-delay: $SHOW_DELAY;
-  }
-  // first submenu item
-  // .nav-area ul ul li:hover a {
-  //   background: #262626;
-  // }
-
+  // first submenu item.
   ul ul li {
-    position: relative;
-  }
+    position: relative; // for second submenu positioning...
 
-  // second submenu item.
-  ul ul ul li:hover a {
-    background: $SEL_BG;
+    // second submenu animation. [NOT DISPLAYED]
+    ul {
+      display: block;
+      visibility: hidden;
+      transition-property: visibility;
+      transition-delay: $HIDE_DELAY;
+
+      top: -6px;
+      left: calc(100% - 0px);
+      padding: -6px 0;
+    }
+    // show second submenu. [DISPLAY]
+    &:hover > ul {
+      display: block;
+      visibility: visible;
+      transition-property: visibility;
+      transition-delay: $SHOW_DELAY;
+    }
   }
 }
 
@@ -200,7 +180,7 @@ $APPICON_SIZE: 30px;
   overflow: hidden;
   font-family: "Segoe UI", sans-serif;
   // font-size: calc(12 / 16) rem;
-  font-size: rem($TITLEBAR_HEIGHT * 12/30);
+  font-size: rem($TITLEBAR-HEIGHT * 12/30);
 
   span {
     overflow: hidden;

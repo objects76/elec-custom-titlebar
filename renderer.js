@@ -20,10 +20,10 @@ window.onbeforeunload = (event) => {
 function handleWindowControls() {
 
     // menubar class settings
-    const rootMenuItems = document.querySelectorAll(".nav-area > ul > li");
+    const rootMenuItems = document.querySelectorAll("#menubar > ul > li");
     for (let li of rootMenuItems) {
         li.addEventListener("click", (e) => {
-            document.querySelector(".nav-area > ul").classList.toggle("opened");
+            document.querySelector("#menubar > ul").classList.toggle("opened");
         });
     }
 

@@ -124,12 +124,12 @@ body {
   color: darkgray;
 }
 
-.nav-area li a:not(.disabled):hover {
-  background: #094771;
+.nav-area ul li a:not(.disabled):hover {
+  background: #3b5365;
 }
 
-.nav-area ul li a:hover {
-  background: #3b5365;
+.nav-area ul ul li a:not(.disabled):hover {
+  background: #094771;
 }
 
 .nav-area ul ul {

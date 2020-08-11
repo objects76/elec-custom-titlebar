@@ -139,11 +139,11 @@ $APPICON_SIZE: 30px;
 		color: darkgray;
 	}
 	// all a under hovered li in .nav-area ul.
-	li a:not(.disabled):hover {
-		background: $MENUITEM-SELECT2;
-	}
-	ul li a:hover {
+	ul li a:not(.disabled):hover {
 		background: $MENUITEM-SELECT1;
+	}
+	ul ul li a:not(.disabled):hover {
+		background: $MENUITEM-SELECT2;
 	}
 	// all sub menu-block. [NOT DISPLAYED]
 	ul ul {

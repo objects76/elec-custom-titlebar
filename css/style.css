@@ -47,7 +47,7 @@ body {
   height: 32px;
   width: calc(100% - 2px);
   /*Compensate for body 1px border*/
-  background: #254053;
+  background: #161617;
   color: lightgray;
 }
 
@@ -84,27 +84,22 @@ body {
 }
 
 .nav-area ul {
-  height: 100%;
-  padding: 0;
-  margin: 0;
   list-style: none;
 }
 
 .nav-area li {
   padding: 0;
   margin: 0;
-  background: #254053;
 }
 
-.nav-area .root-items > li {
+.nav-area > ul > li {
   float: left;
   position: relative;
 }
 
-.nav-area ul a {
+.nav-area > ul > li a {
   color: lightgray;
-  height: 100%;
-  background: #254053;
+  background: #161617;
   text-decoration: none;
   padding: 7px 8px;
   display: block;
@@ -116,13 +111,13 @@ body {
 }
 
 .nav-area ul ul a {
-  padding: 7px 26px;
+  padding: 4px 26px;
 }
 
 .nav-area ul ul .separator {
   border-top: 1px solid darkgray;
   height: 1px;
-  margin: 0 10px;
+  margin: 4px 10px;
 }
 
 .nav-area .disabled {
@@ -130,6 +125,10 @@ body {
 }
 
 .nav-area li a:not(.disabled):hover {
+  background: #094771;
+}
+
+.nav-area ul li a:hover {
   background: #3b5365;
 }
 
@@ -139,7 +138,8 @@ body {
   min-width: 250px;
   top: 100%;
   left: 0;
-  padding: 0;
+  padding: 8px 0;
+  background: #161617;
 }
 
 .nav-area ul ul li a.checked:before {
@@ -180,7 +180,7 @@ body {
 }
 
 .nav-area ul ul ul li:hover a {
-  background: #3b5365;
+  background: #094771;
 }
 
 #caption {

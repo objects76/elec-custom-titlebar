@@ -34,9 +34,10 @@ body {
 	color: #fff;
 }
 
-$TITLEBAR_BG: #254053;
+$TITLEBAR-BG: #161617;
 $COLOR: lightgray;
-$SEL_BG: #3b5365;
+$MENUITEM-SELECT1: #3b5365;
+$MENUITEM-SELECT2: #094771;
 $TITLEBAR_HEIGHT: 32px;
 $APPICON_SIZE: 30px;
 
@@ -48,7 +49,7 @@ $APPICON_SIZE: 30px;
 	position: fixed;
 	height: $TITLEBAR_HEIGHT;
 	width: calc(100% - 2px); /*Compensate for body 1px border*/
-	background: $TITLEBAR_BG;
+	background: $TITLEBAR-BG;
 	//padding: 4px; // for more drag region.
 	color: $COLOR;
 
@@ -86,49 +87,49 @@ $APPICON_SIZE: 30px;
 	display: block;
 
 	ul {
-		height: 100%;
-		padding: 0;
-		margin: 0;
+		// height: 100%;
+		// padding: 0;
+		// margin: 0;
 		list-style: none;
-		// background: $TITLEBAR_BG;
+		// background: $TITLEBAR-BG;
 	}
 	li {
 		padding: 0;
 		margin: 0;
-		background: $TITLEBAR_BG;
+		// background: $TITLEBAR-BG;
 		// height: 100%; for separator...
 	}
 
 	// root menu-item
-	.root-items > li {
+	& > ul > li {
 		float: left;
 		position: relative;
-	}
 
-	ul a {
-		color: $COLOR;
-		height: 100%;
-		background: $TITLEBAR_BG;
-		text-decoration: none;
-		padding: 7px 8px;
-		display: block;
+		a {
+			color: $COLOR;
+			// height: 100%;
+			background: $TITLEBAR-BG;
+			text-decoration: none;
+			padding: 7px 8px;
+			display: block;
+		}
 	}
 
 	ul ul {
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 		// submenu-item
 		a {
-			padding: 7px 26px;
+			padding: 4px 26px;
 		}
 		.separator {
 			border-top: 1px solid darkgray;
 			height: 1px;
-			margin: 0 10px;
+			margin: 4px 10px;
 		}
 	}
 
 	// ul li a {
-	//   background: $TITLEBAR_BG;
+	//   background: $TITLEBAR-BG;
 	//   text-decoration: none;
 	//   color: #fff;
 	//   padding: 4px 10px;
@@ -139,9 +140,11 @@ $APPICON_SIZE: 30px;
 	}
 	// all a under hovered li in .nav-area ul.
 	li a:not(.disabled):hover {
-		background: $SEL_BG;
+		background: $MENUITEM-SELECT2;
 	}
-
+	ul li a:hover {
+		background: $MENUITEM-SELECT1;
+	}
 	// all sub menu-block. [NOT DISPLAYED]
 	ul ul {
 		display: none;
@@ -149,7 +152,8 @@ $APPICON_SIZE: 30px;
 		min-width: 250px;
 		top: 100%;
 		left: 0;
-		padding: 0;
+		padding: 8px 0;
+		background: $TITLEBAR-BG;
 	}
 
 	// check mark in li.
@@ -199,7 +203,7 @@ $APPICON_SIZE: 30px;
 
 	// second submenu item.
 	ul ul ul li:hover a {
-		background: $SEL_BG;
+		background: $MENUITEM-SELECT2;
 	}
 }
 

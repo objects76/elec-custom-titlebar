@@ -17,26 +17,21 @@
         <!-- menu  -->
         <div id="sys-menus">
           <ul>
-            <li>
-              <a href="#">File</a>
-            </li=>
-            <li>
-              <a href="#">Edit</a>
-            </li>
-            
+            <li><span>File</span></li>
+            <li><span>Edit</span></li>
+
             <li class="dropdown">
-              <a href="javascript:void(0)" class="dropbtn">Run</a>
-              <div class="dropdown-content">
-                <a href="#">Start Debugging</a>
-                <a href="#">Run Without Debugging</a>
-                <a href="#">Stop Debugging</a>
-                <a href="#">Restart Debugging</a>
-              </div>
+              <span>Run</span>
+              <ul class="dropdown-content">
+                <li class="enabled">Start Debugging</li>
+                <li class="enabled">Run Without Debugging</li>
+                <li class="divider"></li>
+                <li class="disabled">Stop Debugging</li>
+                <li class="disabled">Restart Debugging</li>
+              </ul>
             </li>
 
-            <li>
-              <a href="#">Help</a>
-            </li>
+            <li><span>Help</span></li>
           </ul>
         </div>
 

@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+  background-color: darkgray;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  // background: url("hd.jpg");
+  background: cover center center no-repeat;
+  height: 100vh;
+}
+
+a {
+  font-size: 0.8rem;
+  // font-weight: bold;
+}
+
+$NAV_BG: #262626;
+$NAV_SEL: #34495a;
+$SHOW_DELAY: 300ms;
+$HIDE_DELAY: 600ms;
+
+.nav-area {
+  background: $NAV_BG;
+}
+
+// expand margin space of nav-area.
+.nav-area:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.nav-area ul {
+  list-style: none;
+  background: $NAV_BG;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.nav-area > ul > li {
+  float: left;
+  position: relative;
+}
+
+.nav-area ul li a {
+  background: $NAV_BG;
+  text-decoration: none;
+  color: #fff;
+  padding: 4px 10px;
+  display: block;
+}
+
+// all a under hovered li in .nav-area ul.
+.nav-area ul a:hover {
+  background: $NAV_SEL;
+}
+
+// all sub menu-block. [NOT DISPLAYED]
+.nav-area ul ul {
+  position: absolute;
+  min-width: 160px;
+  top: 100%;
+  left: 0;
+  display: none;
+}
+// first submenu. [DISPLAYED]
+.nav-area ul > li.opened > ul {
+  // with js
+  display: block;
+}
+.nav-area ul > li:focus-within > ul {
+  display: block;
+}
+.nav-area ul > li.clicked:hover > ul {
+  display: none;
+}
+
+// second submenu animation. [NOT DISPLAYED]
+.nav-area ul ul ul {
+  display: block;
+  visibility: hidden;
+  transition-property: visibility;
+  transition-delay: $HIDE_DELAY;
+
+  top: -6px;
+  left: calc(100% - 0px);
+  padding: -6px 0;
+}
+
+// .nav-area ul li:hover > ul {
+//   display: block;
+// }
+
+// show second submenu. [DISPLAY]
+.nav-area ul ul li:hover > ul {
+  display: block;
+
+  visibility: visible;
+  transition-property: visibility;
+  transition-delay: $SHOW_DELAY;
+}
+// first submenu item
+// .nav-area ul ul li:hover a {
+//   background: #262626;
+// }
+
+.nav-area ul ul li {
+  position: relative;
+}
+
+// second submenu item.
+.nav-area ul ul ul li:hover a {
+  background: $NAV_SEL;
+}

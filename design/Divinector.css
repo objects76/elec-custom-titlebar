@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  background-color: darkgray;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: cover center center no-repeat;
+  height: 100vh;
+}
+
+a {
+  font-size: 0.8rem;
+}
+
+.nav-area {
+  background: #262626;
+}
+
+.nav-area:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.nav-area ul {
+  list-style: none;
+  background: #262626;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.nav-area > ul > li {
+  float: left;
+  position: relative;
+}
+
+.nav-area ul li a {
+  background: #262626;
+  text-decoration: none;
+  color: #fff;
+  padding: 4px 10px;
+  display: block;
+}
+
+.nav-area ul a:hover {
+  background: #34495a;
+}
+
+.nav-area ul ul {
+  position: absolute;
+  min-width: 160px;
+  top: 100%;
+  left: 0;
+  display: none;
+}
+
+.nav-area ul > li.opened > ul {
+  display: block;
+}
+
+.nav-area ul > li:focus-within > ul {
+  display: block;
+}
+
+.nav-area ul > li.clicked:hover > ul {
+  display: none;
+}
+
+.nav-area ul ul ul {
+  display: block;
+  visibility: hidden;
+  -webkit-transition-property: visibility;
+  transition-property: visibility;
+  -webkit-transition-delay: 600ms;
+          transition-delay: 600ms;
+  top: -6px;
+  left: calc(100% - 0px);
+  padding: -6px 0;
+}
+
+.nav-area ul ul li:hover > ul {
+  display: block;
+  visibility: visible;
+  -webkit-transition-property: visibility;
+  transition-property: visibility;
+  -webkit-transition-delay: 300ms;
+          transition-delay: 300ms;
+}
+
+.nav-area ul ul li {
+  position: relative;
+}
+
+.nav-area ul ul ul li:hover a {
+  background: #34495a;
+}
+/*# sourceMappingURL=Divinector.css.map */

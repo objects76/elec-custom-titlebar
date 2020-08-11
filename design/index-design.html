@@ -3,21 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <title>Custom titlebar</title>
-    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
   </head>
 
   <body>
     <header id="titlebar">
       <div id="drag-region">
+        <!-- app icon -->
         <div id="app-icon">
           <img src="../icons/code_70x70.png" draggable="false" />
         </div>
-        <div id="caption">
-          <span
-            >Test Custom Titlebar in Electron.est Custom Titlebar in Electron.est Custom Titlebar in Electron.
-          </span>
+
+        <!-- menu  -->
+        <div id="sys-menus">
+          <ul>
+            <li>
+              <a href="#">File</a>
+            </li=>
+            <li>
+              <a href="#">Edit</a>
+            </li>
+            
+            <li class="dropdown">
+              <a href="javascript:void(0)" class="dropbtn">Run</a>
+              <div class="dropdown-content">
+                <a href="#">Start Debugging</a>
+                <a href="#">Run Without Debugging</a>
+                <a href="#">Stop Debugging</a>
+                <a href="#">Restart Debugging</a>
+              </div>
+            </li>
+
+            <li>
+              <a href="#">Help</a>
+            </li>
+          </ul>
         </div>
 
+        <!-- caption -->
+        <div id="caption">
+          <span><b>Test Custom Titlebar in Electron</b></span>
+        </div>
+
+        <!-- system buttons -->
         <div id="sys-btns">
           <div class="button" id="min-button">
             <img class="icon" src="../icons/min-w-10.png" draggable="false" />

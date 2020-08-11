@@ -81,6 +81,8 @@ $APPICON_SIZE: 30px;
   $HIDE_DELAY: 600ms;
   font-size: 0.8rem;
   text-overflow: ellipsis;
+  display: block;
+
   ul {
     height: 100%;
     padding: 0;
@@ -95,6 +97,11 @@ $APPICON_SIZE: 30px;
   }
 
   // root menu-item
+  .root-items > li {
+    float: left;
+    position: relative;
+  }
+
   ul a {
     color: $COLOR;
     height: 100%;
@@ -111,11 +118,6 @@ $APPICON_SIZE: 30px;
   ul ul a {
     padding: 7px 26px;
   }
-  .root-items > li {
-    float: left;
-    position: relative;
-  }
-
   // ul li a {
   //   background: $TITLEBAR_BG;
   //   text-decoration: none;

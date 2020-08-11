@@ -79,6 +79,7 @@ body {
   margin-left: 10px;
   font-size: 0.8rem;
   text-overflow: ellipsis;
+  display: block;
 }
 
 .nav-area ul {
@@ -93,6 +94,11 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
+}
+
+.nav-area .root-items > li {
+  float: left;
+  position: relative;
 }
 
 .nav-area ul a {
@@ -111,11 +117,6 @@ body {
 
 .nav-area ul ul a {
   padding: 7px 26px;
-}
-
-.nav-area .root-items > li {
-  float: left;
-  position: relative;
 }
 
 .nav-area ul a:hover {

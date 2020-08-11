@@ -1,3 +1,4 @@
+@charset "UTF-8";
 *,
 *:before,
 *:after {
@@ -87,13 +88,12 @@ body {
   padding: 0;
   margin: 0;
   list-style: none;
-  background: #254053;
 }
 
 .nav-area li {
   padding: 0;
   margin: 0;
-  height: 100%;
+  background: #254053;
 }
 
 .nav-area .root-items > li {
@@ -122,6 +122,7 @@ body {
 .nav-area ul ul .separator {
   border-top: 1px solid darkgray;
   height: 1px;
+  margin: 0 10px;
 }
 
 .nav-area .disabled {
@@ -138,6 +139,15 @@ body {
   min-width: 250px;
   top: 100%;
   left: 0;
+  padding: 0;
+}
+
+.nav-area ul ul li a.checked:before {
+  content: "✓";
+  /* placeholder for the SVG */
+  position: absolute;
+  left: 8px;
+  /* place the SVG at the start of the padding */
 }
 
 .nav-area ul.opened > li:hover > ul {

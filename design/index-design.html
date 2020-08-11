@@ -51,11 +51,15 @@
               </ul>
             </li>
             <li>
-              <a href="#">Portfolio</a>
+              <a href="#">Run</a>
               <ul>
-                <li><a href="#">Logo Design</a></li>
-                <li><a href="#">Card Design</a></li>
-                <li><a href="#">Poster Design</a></li>
+                <li><a href="#">Start Debugging</a></li>
+                <li><a href="#">Run Without Debugging</a></li>
+                <li class="disabled"><a href="#" class="disabled">Stop Debugging</a></li>
+                <li class="disabled"><a href="#" class="disabled">Restart Debugging</a></li>
+                <li class="separator"></li>
+                <li><a href="#">Open Configuration</a></li>
+                <li><a href="#">Add Configuration</a></li>
               </ul>
             </li>
             <li>
@@ -147,6 +151,15 @@
       >
     </div>
     <script>
+      // menubar class settings
+      const rootMenuItems = document.querySelectorAll(".nav-area > ul > li");
+      for (let li of rootMenuItems) {
+        li.addEventListener("click", (e) => {
+          document.querySelector(".nav-area > ul").classList.toggle("opened");
+        });
+      }
+
+      // system buton settings
       document.getElementById("min-button").addEventListener("click", (event) => {});
 
       document.getElementById("max-button").addEventListener("click", (event) => {

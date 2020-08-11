@@ -113,11 +113,16 @@ $APPICON_SIZE: 30px;
 
   ul ul {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    // submenu-item
+    a {
+      padding: 7px 26px;
+    }
+    .separator {
+      border-top: 1px solid darkgray;
+      height: 1px;
+    }
   }
-  // submenu-item
-  ul ul a {
-    padding: 7px 26px;
-  }
+
   // ul li a {
   //   background: $TITLEBAR_BG;
   //   text-decoration: none;
@@ -125,9 +130,11 @@ $APPICON_SIZE: 30px;
   //   padding: 4px 10px;
   //   display: block;
   // }
-
+  .disabled {
+    color: darkgray;
+  }
   // all a under hovered li in .nav-area ul.
-  ul a:hover {
+  li a:not(.disabled):hover {
     background: $SEL_BG;
   }
 
@@ -140,14 +147,7 @@ $APPICON_SIZE: 30px;
     left: 0;
   }
   // first submenu. [DISPLAYED]
-  // ul > li.opened > ul {
-  //   // with js
-  //   display: block;
-  // }
-  // ul > li:focus-within > ul {
-  //   display: block;
-  // }
-  ul > li:hover > ul {
+  ul.opened > li:hover > ul {
     display: block;
   }
 

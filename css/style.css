@@ -119,7 +119,16 @@ body {
   padding: 7px 26px;
 }
 
-.nav-area ul a:hover {
+.nav-area ul ul .separator {
+  border-top: 1px solid darkgray;
+  height: 1px;
+}
+
+.nav-area .disabled {
+  color: darkgray;
+}
+
+.nav-area li a:not(.disabled):hover {
   background: #3b5365;
 }
 
@@ -131,7 +140,7 @@ body {
   left: 0;
 }
 
-.nav-area ul > li:hover > ul {
+.nav-area ul.opened > li:hover > ul {
   display: block;
 }
 

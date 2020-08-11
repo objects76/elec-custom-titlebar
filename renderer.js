@@ -18,6 +18,15 @@ window.onbeforeunload = (event) => {
 }
 
 function handleWindowControls() {
+
+    // menubar class settings
+    const rootMenuItems = document.querySelectorAll(".nav-area > ul > li");
+    for (let li of rootMenuItems) {
+        li.addEventListener("click", (e) => {
+            document.querySelector(".nav-area > ul").classList.toggle("opened");
+        });
+    }
+
     // Make minimise/maximise/restore/close buttons work when they are clicked
     document.getElementById('min-button').addEventListener("click", event => {
         win.minimize();

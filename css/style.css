@@ -15,39 +15,32 @@
   padding: 0;
 }
 
-html {
+body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
   margin: 0;
-}
-
-body {
   font-family: "Segoe UI", sans-serif;
-  background: #1a2933;
+  background: gray;
+  height: 100vh;
 }
 
 /*-------------------*/
 body {
-  border: 1px solid #48545c;
+  margin: 0;
+  padding: 0;
   overflow-y: hidden;
-  color: #fff;
 }
 
 #titlebar {
   font-family: "Segoe UI", sans-serif;
   padding: 0;
   margin: 0;
+  position: absolute;
   display: block;
-  position: fixed;
   height: 32px;
   width: calc(100% - 2px);
   /*Compensate for body 1px border*/
-  background: #161617;
+  background: #323233;
   color: lightgray;
 }
 
@@ -83,38 +76,40 @@ body {
   display: block;
 }
 
-.nav-area ul {
+#menubar ul {
   list-style: none;
 }
 
-.nav-area li {
+#menubar li {
   padding: 0;
   margin: 0;
 }
 
-.nav-area > ul > li {
+#menubar a {
+  padding: 4px 26px;
+  display: block;
+  color: lightgray;
+  height: 100%;
+  text-decoration: none;
+  background: #323233;
+}
+
+#menubar > ul > li {
   float: left;
   position: relative;
 }
 
-.nav-area > ul > li a {
-  color: lightgray;
-  background: #161617;
-  text-decoration: none;
-  padding: 7px 8px;
-  display: block;
+#menubar > ul > li > a {
+  padding: 0px 8px;
+  line-height: 32px;
 }
 
-.nav-area ul ul {
+#menubar ul ul {
   -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
           box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.nav-area ul ul a {
-  padding: 4px 26px;
-}
-
-#menubar .separator {
+#menubar ul ul .separator {
   border-top: 1px solid darkgray;
   height: 1px;
   margin: 4px 10px;
@@ -124,25 +119,25 @@ body {
   color: darkgray;
 }
 
-.nav-area ul li a:not(.disabled):hover {
+#menubar ul li a:not(.disabled):hover {
   background: #3b5365;
 }
 
-.nav-area ul ul li a:not(.disabled):hover {
+#menubar ul ul li a:not(.disabled):hover {
   background: #094771;
 }
 
-.nav-area ul ul {
+#menubar ul ul {
   display: none;
   position: absolute;
   min-width: 250px;
   top: 100%;
   left: 0;
   padding: 8px 0;
-  background: #161617;
+  background: #323233;
 }
 
-.nav-area ul ul li a.checked:before {
+#menubar ul ul li a.checked:before {
   content: "✓";
   /* placeholder for the SVG */
   position: absolute;
@@ -150,15 +145,11 @@ body {
   /* place the SVG at the start of the padding */
 }
 
-#menubar ul ul a {
-  padding: 7px 26px;
+#menubar > ul.opened > li:hover > ul {
+  display: block;
 }
 
-#menubar ul ul li {
-  position: relative;
-}
-
-#menubar ul ul li ul {
+#menubar ul ul ul {
   display: block;
   visibility: hidden;
   -webkit-transition-property: visibility;
@@ -179,11 +170,11 @@ body {
           transition-delay: 300ms;
 }
 
-.nav-area ul ul li {
+#menubar ul ul li {
   position: relative;
 }
 
-.nav-area ul ul ul li:hover a {
+#menubar ul ul ul li:hover a {
   background: #094771;
 }
 
@@ -292,24 +283,47 @@ body {
 }
 
 #main {
+  display: none;
   height: calc(100% - 32px);
   margin-top: 32px;
   padding: 20px;
   overflow-y: auto;
 }
 
-textarea {
+#main textarea {
   width: 100%;
 }
 
-.textwrapper {
+#main .textwrapper {
   border: 1px solid #999999;
   margin: 5px 0;
   padding: 3px;
 }
 
-p {
+#main p {
   margin-top: 10px;
   color: gray;
+}
+
+#main2 {
+  padding: 100px 50px;
+  overflow-y: auto;
+  color: black;
+}
+
+#statusbar {
+  background: skyblue;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  /* Rest of your styling */
+}
+
+.notification-close {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  /* This are approximated values, and the rest of your styling goes here */
 }
 /*# sourceMappingURL=style.css.map */

@@ -3,291 +3,328 @@
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
-  user-select: none;
+	box-sizing: inherit;
+	user-select: none;
 }
 
 * {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 html {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html,
 body {
-  height: 100%;
-  margin: 0;
+	height: 100%;
+	margin: 0;
 }
 
 body {
-  font-family: "Segoe UI", sans-serif;
-  background: #1a2933;
+	font-family: "Segoe UI", sans-serif;
+	background: #1a2933;
 }
 
 /*-------------------*/
 body {
-  border: 1px solid #48545c;
-  overflow-y: hidden;
-  color: #fff;
+	border: 1px solid #48545c;
+	overflow-y: hidden;
+	color: #fff;
 }
 
-$BG-COLOR: #254053;
-$FG-COLOR: lightgray;
-$SELECTED-MENUITEM: #3b5365;
-$TITLEBAR-HEIGHT: 32px;
-$APPICON-SIZE: $TITLEBAR-HEIGHT - 2px;
+$TITLEBAR-BG: #161617;
+$COLOR: lightgray;
+$MENUITEM-SELECT1: #3b5365;
+$MENUITEM-SELECT2: #094771;
+$TITLEBAR_HEIGHT: 32px;
+$APPICON_SIZE: 30px;
 
 #titlebar {
-  font-family: "Segoe UI", sans-serif;
-  padding: 0;
-  margin: 0;
-  display: block;
-  position: fixed;
-  height: $TITLEBAR-HEIGHT;
-  width: calc(100% - 2px); /*Compensate for body 1px border*/
-  background: $BG-COLOR;
-  //padding: 4px; // for more drag region.
-  color: $FG-COLOR;
+	font-family: "Segoe UI", sans-serif;
+	padding: 0;
+	margin: 0;
+	display: block;
+	position: fixed;
+	height: $TITLEBAR_HEIGHT;
+	width: calc(100% - 2px); /*Compensate for body 1px border*/
+	background: $TITLEBAR-BG;
+	//padding: 4px; // for more drag region.
+	color: $COLOR;
 
-  #drag-region {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    -webkit-app-region: drag;
-    display: grid;
-    grid-template-columns: $APPICON-SIZE fit-content(300px) auto fit-content(200px);
-    grid-auto-rows: ($TITLEBAR-HEIGHT - 0);
-  }
+	#drag-region {
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		height: 100%;
+		-webkit-app-region: drag;
+		display: grid;
+		grid-template-columns: $APPICON_SIZE fit-content(300px) auto fit-content(
+				200px
+			);
+		grid-auto-rows: ($TITLEBAR_HEIGHT - 0);
+	}
 }
 
 #app-icon {
-  grid-column: 1;
-  img {
-    // vertical-align: middle;
-    // margin: -3px;
-    height: 100%;
-  }
+	grid-column: 1;
+	img {
+		// vertical-align: middle;
+		// margin: -3px;
+		height: 100%;
+	}
 }
 
-#menubar {
-  grid-column: 2;
-  -webkit-app-region: no-drag;
-  margin-left: 10px;
-  $SHOW_DELAY: 300ms;
-  $HIDE_DELAY: 600ms;
-  font-size: 0.8rem;
-  text-overflow: ellipsis;
-  display: block;
+.nav-area {
+	grid-column: 2;
+	-webkit-app-region: no-drag;
+	margin-left: 10px;
+	$SHOW_DELAY: 300ms;
+	$HIDE_DELAY: 600ms;
+	font-size: 0.8rem;
+	text-overflow: ellipsis;
+	display: block;
 
-  // global shapes.
-  ul {
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    background: $BG-COLOR;
-    a {
-      color: $FG-COLOR;
-      height: 100%;
-      background: $BG-COLOR;
-      text-decoration: none;
-      padding: 7px 8px;
-      display: block;
-    }
+	ul {
+		// height: 100%;
+		// padding: 0;
+		// margin: 0;
+		list-style: none;
+		// background: $TITLEBAR-BG;
+	}
+	li {
+		padding: 0;
+		margin: 0;
+		// background: $TITLEBAR-BG;
+		// height: 100%; for separator...
+	}
 
-    li {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-    }
-  }
+	// root menu-item
+	& > ul > li {
+		float: left;
+		position: relative;
 
-  .separator {
-    border-top: 1px solid darkgray;
-    height: 1px;
-  }
-  .disabled {
-    color: darkgray;
-  }
-  // selection
-  li a:not(.disabled):hover {
-    background: $SELECTED-MENUITEM;
-  }
+		a {
+			color: $COLOR;
+			// height: 100%;
+			background: $TITLEBAR-BG;
+			text-decoration: none;
+			padding: 7px 8px;
+			display: block;
+		}
+	}
 
-  // root menu-item
-  & > ul > li {
-    float: left;
-    position: relative;
-  }
+	ul ul {
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+		// submenu-item
+		a {
+			padding: 4px 26px;
+		}
+		.separator {
+			border-top: 1px solid darkgray;
+			height: 1px;
+			margin: 4px 10px;
+		}
+	}
 
-  // first submenu. [DISPLAYED]
-  & > ul.opened > li:hover > ul {
-    display: block;
-  }
+	// ul li a {
+	//   background: $TITLEBAR-BG;
+	//   text-decoration: none;
+	//   color: #fff;
+	//   padding: 4px 10px;
+	//   display: block;
+	// }
+	.disabled {
+		color: darkgray;
+	}
+	// all a under hovered li in .nav-area ul.
+	ul li a:not(.disabled):hover {
+		background: $MENUITEM-SELECT1;
+	}
+	ul ul li a:not(.disabled):hover {
+		background: $MENUITEM-SELECT2;
+	}
+	// all sub menu-block. [NOT DISPLAYED]
+	ul ul {
+		display: none;
+		position: absolute;
+		min-width: 250px;
+		top: 100%;
+		left: 0;
+		padding: 8px 0;
+		background: $TITLEBAR-BG;
+	}
 
-  // all submenu container(not horizental menubar).
-  ul ul {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    // submenu-item
-    a {
-      padding: 7px 26px;
-    }
+	// check mark in li.
+	ul ul li a.checked:before {
+		content: "✓"; /* placeholder for the SVG */
+		position: absolute;
+		left: 8px; /* place the SVG at the start of the padding */
+	}
 
-    // all sub menu-block. [NOT DISPLAYED]
-    display: none;
-    position: absolute;
-    min-width: 250px;
-    top: 100%;
-    left: 0;
-  }
+	// first submenu. [DISPLAYED]
+	ul.opened > li:hover > ul {
+		display: block;
+	}
 
-  // first submenu item.
-  ul ul li {
-    position: relative; // for second submenu positioning...
+	// second submenu animation. [NOT DISPLAYED]
+	ul ul ul {
+		display: block;
+		visibility: hidden;
+		transition-property: visibility;
+		transition-delay: $HIDE_DELAY;
 
-    // second submenu animation. [NOT DISPLAYED]
-    ul {
-      display: block;
-      visibility: hidden;
-      transition-property: visibility;
-      transition-delay: $HIDE_DELAY;
+		top: -6px;
+		left: calc(100% - 0px);
+		padding: -6px 0;
+	}
 
-      top: -6px;
-      left: calc(100% - 0px);
-      padding: -6px 0;
-    }
-    // show second submenu. [DISPLAY]
-    &:hover > ul {
-      display: block;
-      visibility: visible;
-      transition-property: visibility;
-      transition-delay: $SHOW_DELAY;
-    }
-  }
+	// .nav-area ul li:hover > ul {
+	//   display: block;
+	// }
+
+	// show second submenu. [DISPLAY]
+	ul ul li:hover > ul {
+		display: block;
+
+		visibility: visible;
+		transition-property: visibility;
+		transition-delay: $SHOW_DELAY;
+	}
+	// first submenu item
+	// .nav-area ul ul li:hover a {
+	//   background: #262626;
+	// }
+
+	ul ul li {
+		position: relative;
+	}
+
+	// second submenu item.
+	ul ul ul li:hover a {
+		background: $MENUITEM-SELECT2;
+	}
 }
 
 #caption {
-  // background-color: orange;
-  grid-column: 3;
-  margin: 4px 4px;
-  display: flex;
-  justify-content: center;
-  // align-items: center;
-  overflow: hidden;
-  font-family: "Segoe UI", sans-serif;
-  // font-size: calc(12 / 16) rem;
-  font-size: rem($TITLEBAR-HEIGHT * 12/30);
+	// background-color: orange;
+	grid-column: 3;
+	margin: 4px 4px;
+	display: flex;
+	justify-content: center;
+	// align-items: center;
+	overflow: hidden;
+	font-family: "Segoe UI", sans-serif;
+	// font-size: calc(12 / 16) rem;
+	font-size: rem($TITLEBAR_HEIGHT * 12/30);
 
-  span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    line-height: 1.5rem;
-  }
+	span {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		line-height: 1.5rem;
+	}
 }
 #sys-btns {
-  grid-column: 4;
-  z-index: 100;
-  display: grid;
-  grid-template-columns: repeat(3, 46px);
-  // position: absolute;
-  // height: 100%;
-  // top: 0;
-  // right: 0;
+	grid-column: 4;
+	z-index: 100;
+	display: grid;
+	grid-template-columns: repeat(3, 46px);
+	// position: absolute;
+	// height: 100%;
+	// top: 0;
+	// right: 0;
 
-  -webkit-app-region: no-drag;
+	-webkit-app-region: no-drag;
 
-  .button {
-    grid-row: 1 / span 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+	.button {
+		grid-row: 1 / span 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
 
-    &:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-    &:active {
-      background: rgba(255, 255, 255, 0.2);
-    }
-  }
+		&:hover {
+			background: rgba(255, 255, 255, 0.1);
+		}
+		&:active {
+			background: rgba(255, 255, 255, 0.2);
+		}
+	}
 
-  #min-button {
-    grid-column: 1;
-  }
-  #max-button,
-  #restore-button {
-    grid-column: 2;
-  }
+	#min-button {
+		grid-column: 1;
+	}
+	#max-button,
+	#restore-button {
+		grid-column: 2;
+	}
 
-  #close-button {
-    grid-column: 3;
-    &:hover {
-      background: #e81123 !important;
-    }
-    &:active {
-      filter: brightness(80%);
-    }
-  }
+	#close-button {
+		grid-column: 3;
+		&:hover {
+			background: #e81123 !important;
+		}
+		&:active {
+			filter: brightness(80%);
+		}
+	}
 } // #sys-btns
 
 #restore-button {
-  // not work in #sys-btn scope.
-  display: none !important;
+	// not work in #sys-btn scope.
+	display: none !important;
 }
 
 .maximized {
-  // #titlebar {
-  //   width: 100%;
-  //   padding: 0;
-  // }
+	// #titlebar {
+	//   width: 100%;
+	//   padding: 0;
+	// }
 
-  // #window-title {
-  //   margin-left: 12px;
-  // }
+	// #window-title {
+	//   margin-left: 12px;
+	// }
 
-  #restore-button {
-    display: flex !important;
-  }
+	#restore-button {
+		display: flex !important;
+	}
 
-  #max-button {
-    display: none;
-  }
+	#max-button {
+		display: none;
+	}
 }
 
 @media (-webkit-device-pixel-ratio: 1.5),
-  (device-pixel-ratio: 1.5),
-  (-webkit-device-pixel-ratio: 2),
-  (device-pixel-ratio: 2),
-  (-webkit-device-pixel-ratio: 3),
-  (device-pixel-ratio: 3) {
-  #sys-btns .icon {
-    width: 10px;
-    height: 10px;
-  }
+	(device-pixel-ratio: 1.5),
+	(-webkit-device-pixel-ratio: 2),
+	(device-pixel-ratio: 2),
+	(-webkit-device-pixel-ratio: 3),
+	(device-pixel-ratio: 3) {
+	#sys-btns .icon {
+		width: 10px;
+		height: 10px;
+	}
 }
 // content sections
 #main {
-  height: calc(100% - 32px);
-  margin-top: 32px;
-  padding: 20px;
-  overflow-y: auto;
+	height: calc(100% - 32px);
+	margin-top: 32px;
+	padding: 20px;
+	overflow-y: auto;
 }
 
 textarea {
-  width: 100%;
+	width: 100%;
 }
 .textwrapper {
-  border: 1px solid #999999;
-  margin: 5px 0;
-  padding: 3px;
+	border: 1px solid #999999;
+	margin: 5px 0;
+	padding: 3px;
 }
 p {
-  margin-top: 10px;
-  color: gray;
+	margin-top: 10px;
+	color: gray;
 }

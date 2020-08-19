@@ -62,11 +62,11 @@ function handleWindowControls() {
 
 // menu handler
 const { delegate } = require('./util');
-const { fullscreenScreenshot } = require('./screenshot');
+const { fullscreenScreenshot, getDesktopStream } = require('./screenshot');
 const { notifyMe } = require('./notification');
 
 const menubar = document.querySelector("#menubar > ul");
-delegate(menubar, "li", "click", (e) => {
+delegate(menubar, "li", "click", async (e) => {
     console.log(e.target.innerText);
     switch (e.target.innerText) {
         case "Logo Design":
@@ -92,8 +92,27 @@ delegate(menubar, "li", "click", (e) => {
         case 'Exit':
             win.close();
             break;
+        case 'Start Desktop Stream':
+            const video = document.getElementById('main');
+            if (video.srcObject) {
+                video.srcObject.getTracks()[0].stop();
+                video.srcObject = null;
+            }
+            else {
+                const stream = await getDesktopStream('Screen 2');
+                console.log(video.src);
+                console.log(video.srcObject);
+
+                // video.onloadedmetadata = function () { video.play(); }
+                video.srcObject = stream;
+                console.log(stream);
+                console.log(video.src);
+                video.play();
+                setTimeout(() => video.pause(), 300);
+            }
+            break;
         default:
-            window.assert("Not handled:" + e.target.innerText);
+            console.warn("Not handled:" + e.target.innerText);
             break;
     }
     //menubar.classList.toggle("opened");

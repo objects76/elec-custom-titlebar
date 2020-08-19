@@ -9,6 +9,43 @@ const path = require('path');
 * @param callback {Function} callback receives as first parameter the base64 string of the image
 * @param imageFormat {String} Format of the image to generate ('image/jpeg' or 'image/png')
 **/
+
+module.exports.getDesktopStream = async function (sourceName) {
+    try {
+        const sources = await desktopCapturer.getSources({ types: ['screen', 'window'] });
+        for (const source of sources) {
+            // Filter: main screen
+            console.log(source);
+            if ((source.name !== sourceName)) continue;
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    audio: false,
+                    video: {
+                        mandatory: {
+                            chromeMediaSource: 'desktop',
+                            chromeMediaSourceId: source.id,
+                            minWidth: 1280,
+                            maxWidth: 4000,
+                            minHeight: 720,
+                            maxHeight: 4000
+                        }
+                    }
+                });
+
+                return stream;
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    }
+    catch (e) {
+        console.error(e);
+    }
+
+    return null;
+}
+
 module.exports.fullscreenScreenshot = function (callback, imageFormat) {
     var _this = this;
     this.callback = callback;
@@ -17,7 +54,7 @@ module.exports.fullscreenScreenshot = function (callback, imageFormat) {
     this.handleStream = (stream, sourceId) => {
         // Create hidden video tag
         var video = document.createElement('video');
-        video.style.cssText = 'position:absolute;top:-10000px;left:-10000px;';
+        video.style.cssText = 'position:absolute;top:-10000px;left:-10000px;'; // nonvisible
 
         // Event connected to stream
         video.onloadedmetadata = async function () {

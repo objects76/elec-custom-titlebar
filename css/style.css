@@ -271,7 +271,7 @@ body {
 }
 
 #main {
-  display: none;
+  display: block;
   height: calc(100% - 32px);
   margin-top: 32px;
   padding: 20px;
@@ -294,7 +294,7 @@ body {
 }
 
 #main2 {
-  display: none;
+  display: block;
   position: static;
   margin: 0;
   padding: 0 50px;
@@ -310,7 +310,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   height: 100%;
-  background-color: blue;
+  background-color: black;
 }
 
 #react-root #youTubePlayer1 {

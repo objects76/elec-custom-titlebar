@@ -73,6 +73,7 @@
                   <li><a href="#">Full screenshot</a></li>
                   <li><a href="#">App screenshot</a></li>
                   <li><a href="#">Open Data Folder</a></li>
+                  <li><a href="#">Start Desktop Stream</a></li>
                 </ul>
               </li>
             </ul>
@@ -105,8 +106,10 @@
       </div>
       <div id="titlebar-placeholder"></div>
       <img id="my-preview" />
-      <div id="youTubePlayer1"></div>
+      <!-- <div id="youTubePlayer1"></div> -->
 
+      <video id="main" src="./icons/sample.mp4" type="video/mp4" controls></video>
+      <!-- <video id="main" controls></video> -->
       <div id="statusbar">....</div>
     </div>
   </body>
@@ -118,43 +121,45 @@
 
   <!-- youtube player -->
   <script>
-    const video_id = "cr5kcR78lGQ";
-    // loading youtube API
-    let tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/player_api";
-    let firstScriptTag = document.getElementsByTagName("script")[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    if (document.getElementById("youTubePlayer1")) {
+      const video_id = "cr5kcR78lGQ";
+      // loading youtube API
+      let tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/player_api";
+      let firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    // set player variable
-    var youTubePlayer1;
+      // set player variable
+      var youTubePlayer1;
 
-    function onYouTubeIframeAPIReady() {
-      youTubePlayer1 = new YT.Player("youTubePlayer1", {
-        // width: "1000", height: "563",
-        height: "360",
-        width: "640",
-        videoId: video_id,
-        playerVars: { rel: 0 }, //추천영상 안보여주게 설정
-        events: {
-          //onReady: onPlayerReady, //로딩할때 이벤트 실행
-          onStateChange: onPlayerStateChange, //플레이어 상태 변화시 이벤트실행
-        },
-      }); //youTubePlayer1셋팅
-    }
-
-    function onPlayerReady(event) {
-      event.target.playVideo(); //자동재생
-      //로딩할때 실행될 동작을 작성한다.
-    }
-
-    function onPlayerStateChange(event) {
-      if (event.data == YT.PlayerState.PLAYING) {
-        //플레이어가 재생중일때 작성한 동작이 실행된다.
+      function onYouTubeIframeAPIReady() {
+        youTubePlayer1 = new YT.Player("youTubePlayer1", {
+          // width: "1000", height: "563",
+          height: "360",
+          width: "640",
+          videoId: video_id,
+          playerVars: { rel: 0 }, //추천영상 안보여주게 설정
+          events: {
+            //onReady: onPlayerReady, //로딩할때 이벤트 실행
+            onStateChange: onPlayerStateChange, //플레이어 상태 변화시 이벤트실행
+          },
+        }); //youTubePlayer1셋팅
       }
-    }
 
-    // youTubePlayer1.playVideo(); //??
-    // youTubePlayer1.stopVideo(); //??
-    // youTubePlayer1.pauseVideo(); //????
+      function onPlayerReady(event) {
+        event.target.playVideo(); //자동재생
+        //로딩할때 실행될 동작을 작성한다.
+      }
+
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING) {
+          //플레이어가 재생중일때 작성한 동작이 실행된다.
+        }
+      }
+
+      // youTubePlayer1.playVideo(); //??
+      // youTubePlayer1.stopVideo(); //??
+      // youTubePlayer1.pauseVideo(); //????
+    }
   </script>
 </html>

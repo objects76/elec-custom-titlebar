@@ -280,7 +280,7 @@ $APPICON_SIZE: 30px;
 
 // content sections
 #main {
-  display: none;
+  display: block;
   height: calc(100% - 32px);
   margin-top: 32px;
   padding: 20px;
@@ -301,7 +301,7 @@ $APPICON_SIZE: 30px;
 }
 
 #main2 {
-  display: none;
+  display: block;
   position: static;
   // margin-top: 32px;
   margin: 0;
@@ -313,7 +313,7 @@ $APPICON_SIZE: 30px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: blue;
+  background-color: black;
 
   #youTubePlayer1 {
     flex: 1;

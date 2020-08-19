@@ -21,7 +21,7 @@ function createWindow() {
 	});
 
 	if (isDev) {
-		mainWindow.loadURL("http://localhost:5501/"); // with live server.
+		mainWindow.loadURL("http://localhost:4500/"); // with live server.
 	} else mainWindow.loadFile("index.html");
 
 	settings.loadWindowSettings(mainWindow, "main");

@@ -1,5 +1,5 @@
 const remote = require('electron').remote;
-
+const { desktopCapturer } = require('electron');
 const win = remote.getCurrentWindow(); /* Note this is different to the
 html global `window` variable */
 
@@ -57,3 +57,35 @@ function handleWindowControls() {
         }
     }
 }
+
+
+// menu handler
+const { delegate } = require('./util');
+const { fullscreenScreenshot } = require('./screenshot');
+const { notifyMe } = require('./notification');
+
+const menubar = document.querySelector("#menubar > ul");
+delegate(menubar, "li", "click", (e) => {
+    console.log(e.target.innerText);
+    switch (e.target.innerText) {
+        case "Logo Design":
+        case "Card Design":
+        case "Poster Design":
+            e.target.classList.toggle("checked");
+            break;
+        case "Add Configuration":
+            notifyMe(e.target.innerText);
+            break;
+        case 'Full screenshot':
+            fullscreenScreenshot(function (base64data) {
+                // Draw image in the img tag
+                document.getElementById("my-preview").setAttribute("src", base64data);
+            }, "image/png");
+            break;
+        case 'App screenshot':
+            break;
+    }
+    //menubar.classList.toggle("opened");
+});
+
+

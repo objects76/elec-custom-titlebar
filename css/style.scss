@@ -3,24 +3,24 @@
 *,
 *:before,
 *:after {
-	box-sizing: inherit;
-	user-select: none;
+  box-sizing: inherit;
+  user-select: none;
 }
 
 * {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 
-	font-family: "Segoe UI", sans-serif;
-	background: gray;
-	height: 100vh;
-	overflow-y: hidden; // hide vertical scrollbar.
+  font-family: "Segoe UI", sans-serif;
+  background: gray;
+  height: 100vh;
+  overflow-y: hidden; // hide vertical scrollbar.
 }
 
 /*-------------------*/
@@ -33,313 +33,316 @@ $TITLEBAR_HEIGHT: 32px;
 $APPICON_SIZE: 30px;
 
 #titlebar {
-	font-family: "Segoe UI", sans-serif;
-	font-size: rem($TITLEBAR_HEIGHT * 12/30);
-	padding: 0;
-	margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  font-size: rem($TITLEBAR_HEIGHT * 12/30);
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  z-index: 99;
 
-	display: block;
-	height: $TITLEBAR_HEIGHT;
-	width: calc(100% - 0px); /*Compensate for body 1px border*/
-	background: $TITLEBAR-BG;
-	padding: 4px 0px 0px 4px; // for more drag region.
-	color: $COLOR;
+  display: block;
+  height: $TITLEBAR_HEIGHT;
+  width: calc(100% - 0px); /*Compensate for body 1px border*/
+  background: $TITLEBAR-BG;
+  padding: 4px 0px 0px 4px; // for more drag region.
+  color: $COLOR;
 
-	#drag-region {
-		padding: 0;
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		-webkit-app-region: drag;
-		display: grid;
-		grid-template-columns: $APPICON_SIZE fit-content(300px) auto fit-content(
-				200px
-			);
-		grid-auto-rows: ($TITLEBAR_HEIGHT - 0);
-	}
+  #drag-region {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-app-region: drag;
+    display: grid;
+    grid-template-columns: $APPICON_SIZE fit-content(300px) auto fit-content(200px);
+    grid-auto-rows: ($TITLEBAR_HEIGHT - 0);
+  }
 }
 
 #app-icon {
-	margin: -4px 0 4px 0;
-	grid-column: 1;
-	img {
-		// vertical-align: middle;
-		// margin: -3px;
-		height: 100%;
-	}
+  margin: -4px 0 4px 0;
+  grid-column: 1;
+  img {
+    // vertical-align: middle;
+    // margin: -3px;
+    height: 100%;
+  }
 }
 
 #menubar {
-	grid-column: 2;
-	margin: -4px 0 4px 0;
-	z-index: 100;
-	-webkit-app-region: no-drag;
-	margin-left: 10px;
-	$SHOW_DELAY: 300ms;
-	$HIDE_DELAY: 600ms;
-	font-size: 0.8rem;
-	text-overflow: ellipsis;
-	display: block;
+  grid-column: 2;
+  margin: -4px 0 4px 0;
+  z-index: 100;
+  -webkit-app-region: no-drag;
+  margin-left: 10px;
+  $SHOW_DELAY: 300ms;
+  $HIDE_DELAY: 600ms;
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  display: block;
 
-	ul {
-		// height: 100%;
-		// padding: 0;
-		// margin: 0;
-		list-style: none;
-		// background: $TITLEBAR-BG;
-	}
-	li {
-		padding: 0;
-		margin: 0;
-		// background: $TITLEBAR-BG;
-		// height: 100%; for separator...
-	}
-	a {
-		padding: 4px 26px;
-		display: block;
-		color: $COLOR;
-		height: 100%;
-		text-decoration: none;
-		background: $TITLEBAR-BG;
-	}
+  ul {
+    // height: 100%;
+    // padding: 0;
+    // margin: 0;
+    list-style: none;
+    // background: $TITLEBAR-BG;
+  }
+  li {
+    padding: 0;
+    margin: 0;
+    // background: $TITLEBAR-BG;
+    // height: 100%; for separator...
+  }
+  a {
+    padding: 4px 26px;
+    display: block;
+    color: $COLOR;
+    height: 100%;
+    text-decoration: none;
+    background: $TITLEBAR-BG;
+  }
 
-	// root menu-item
-	& > ul > li {
-		float: left;
-		position: relative;
+  // root menu-item
+  & > ul > li {
+    float: left;
+    position: relative;
 
-		& > a {
-			padding: 0px 8px;
-			line-height: $TITLEBAR_HEIGHT;
-		}
-	}
+    & > a {
+      padding: 0px 8px;
+      line-height: $TITLEBAR_HEIGHT;
+    }
+  }
 
-	ul ul {
-		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-		// submenu-item
+  ul ul {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    // submenu-item
 
-		.separator {
-			border-top: 1px solid darkgray;
-			height: 1px;
-			margin: 4px 10px;
-		}
-	}
+    .separator {
+      border-top: 1px solid darkgray;
+      height: 1px;
+      margin: 4px 10px;
+    }
+  }
 
-	// ul li a {
-	//   background: $TITLEBAR-BG;
-	//   text-decoration: none;
-	//   color: #fff;
-	//   padding: 4px 10px;
-	//   display: block;
-	// }
-	.disabled {
-		color: darkgray;
-	}
-	// all a under hovered li in .nav-area ul.
-	ul li a:not(.disabled):hover {
-		background: $MENUITEM-SELECT1;
-	}
-	ul ul li a:not(.disabled):hover {
-		background: $MENUITEM-SELECT2;
-	}
-	// all sub menu-block. [NOT DISPLAYED]
-	ul ul {
-		display: none;
-		position: absolute;
-		min-width: 250px;
-		top: 100%;
-		left: 0;
-		padding: 8px 0;
-		background: $TITLEBAR-BG;
-	}
+  // ul li a {
+  //   background: $TITLEBAR-BG;
+  //   text-decoration: none;
+  //   color: #fff;
+  //   padding: 4px 10px;
+  //   display: block;
+  // }
+  .disabled {
+    color: darkgray;
+  }
+  // all a under hovered li in .nav-area ul.
+  ul li a:not(.disabled):hover {
+    background: $MENUITEM-SELECT1;
+  }
+  ul ul li a:not(.disabled):hover {
+    background: $MENUITEM-SELECT2;
+  }
+  // all sub menu-block. [NOT DISPLAYED]
+  ul ul {
+    display: none;
+    position: absolute;
+    min-width: 250px;
+    top: 100%;
+    left: 0;
+    padding: 8px 0;
+    background: $TITLEBAR-BG;
+  }
 
-	// check mark in li.
-	ul ul li a.checked:before {
-		content: "✓"; /* placeholder for the SVG */
-		position: absolute;
-		left: 8px; /* place the SVG at the start of the padding */
-	}
+  // check mark in li.
+  ul ul li a.checked:before {
+    content: "✓"; /* placeholder for the SVG */
+    position: absolute;
+    left: 8px; /* place the SVG at the start of the padding */
+  }
 
-	// first submenu. [DISPLAYED]
-	& > ul.opened > li:hover > ul {
-		display: block;
-	}
+  // first submenu. [DISPLAYED]
+  & > ul.opened > li:hover > ul {
+    display: block;
+  }
 
-	// second submenu animation. [NOT DISPLAYED]
-	ul ul ul {
-		display: block;
-		visibility: hidden;
-		transition-property: visibility;
-		transition-delay: $HIDE_DELAY;
+  // second submenu animation. [NOT DISPLAYED]
+  ul ul ul {
+    display: block;
+    visibility: hidden;
+    transition-property: visibility;
+    transition-delay: $HIDE_DELAY;
 
-		top: -6px;
-		left: calc(100% - 0px);
-		padding: -6px 0;
-	}
+    top: -6px;
+    left: calc(100% - 0px);
+    padding: -6px 0;
+  }
 
-	// .nav-area ul li:hover > ul {
-	//   display: block;
-	// }
+  // .nav-area ul li:hover > ul {
+  //   display: block;
+  // }
 
-	// show second submenu. [DISPLAY]
-	ul ul li:hover > ul {
-		display: block;
+  // show second submenu. [DISPLAY]
+  ul ul li:hover > ul {
+    display: block;
 
-		visibility: visible;
-		transition-property: visibility;
-		transition-delay: $SHOW_DELAY;
-	}
-	// first submenu item
-	// .nav-area ul ul li:hover a {
-	//   background: #262626;
-	// }
+    visibility: visible;
+    transition-property: visibility;
+    transition-delay: $SHOW_DELAY;
+  }
+  // first submenu item
+  // .nav-area ul ul li:hover a {
+  //   background: #262626;
+  // }
 
-	ul ul li {
-		position: relative;
-	}
+  ul ul li {
+    position: relative;
+  }
 
-	// second submenu item.
-	ul ul ul li:hover a {
-		background: $MENUITEM-SELECT2;
-	}
+  // second submenu item.
+  ul ul ul li:hover a {
+    background: $MENUITEM-SELECT2;
+  }
 }
 
 #caption {
-	// background-color: orange;
-	grid-column: 3;
-	margin: -4px auto 4px auto;
-	//display: flex;
-	//justify-content: center;
-	// align-items: center;
-	overflow: hidden;
-	span {
-		line-height: $TITLEBAR_HEIGHT;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
+  // background-color: orange;
+  grid-column: 3;
+  margin: -4px auto 4px auto;
+  //display: flex;
+  //justify-content: center;
+  // align-items: center;
+  overflow: hidden;
+  span {
+    line-height: $TITLEBAR_HEIGHT;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 #sys-btns {
-	grid-column: 4;
-	z-index: 100;
-	display: grid;
-	grid-template-columns: repeat(3, 46px);
-	// position: absolute;
-	// height: 100%;
-	// top: 0;
-	// right: 0;
+  grid-column: 4;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: repeat(3, 46px);
+  // position: absolute;
+  // height: 100%;
+  // top: 0;
+  // right: 0;
 
-	-webkit-app-region: no-drag;
+  -webkit-app-region: no-drag;
 
-	.button {
-		margin-top: -4px;
-		grid-row: 1 / span 1;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		height: 100%;
+  .button {
+    margin-top: -4px;
+    grid-row: 1 / span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 
-		&:hover {
-			background: rgba(255, 255, 255, 0.1);
-		}
-		&:active {
-			background: rgba(255, 255, 255, 0.2);
-		}
-	}
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    &:active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
 
-	#min-button {
-		grid-column: 1;
-	}
-	#max-button,
-	#restore-button {
-		grid-column: 2;
-	}
-	#restore-button {
-		// not work in #sys-btn scope.
-		display: none !important;
-	}
-	#close-button {
-		grid-column: 3;
-		&:hover {
-			background: #e81123 !important;
-		}
-		&:active {
-			filter: brightness(80%);
-		}
-	}
+  #min-button {
+    grid-column: 1;
+  }
+  #max-button,
+  #restore-button {
+    grid-column: 2;
+  }
+  #restore-button {
+    // not work in #sys-btn scope.
+    display: none !important;
+  }
+  #close-button {
+    grid-column: 3;
+    &:hover {
+      background: #e81123 !important;
+    }
+    &:active {
+      filter: brightness(80%);
+    }
+  }
 } // #sys-btns
 
 .maximized #sys-btns #restore-button {
-	display: flex !important;
+  display: flex !important;
 }
 
 .maximized #sys-btns #max-button {
-	display: none;
+  display: none;
 }
 
 // content sections
 #main {
-	display: none;
-	height: calc(100% - 32px);
-	margin-top: 32px;
-	padding: 20px;
-	overflow-y: auto;
+  display: none;
+  height: calc(100% - 32px);
+  margin-top: 32px;
+  padding: 20px;
+  overflow-y: auto;
 
-	textarea {
-		width: 100%;
-	}
-	.textwrapper {
-		border: 1px solid #999999;
-		margin: 5px 0;
-		padding: 3px;
-	}
-	p {
-		margin-top: 10px;
-		color: gray;
-	}
+  textarea {
+    width: 100%;
+  }
+  .textwrapper {
+    border: 1px solid #999999;
+    margin: 5px 0;
+    padding: 3px;
+  }
+  p {
+    margin-top: 10px;
+    color: gray;
+  }
 }
 
 #main2 {
-	display: none;
-	position: static;
-	// margin-top: 32px;
-	margin: 0;
-	padding: 0 50px;
-	color: white;
+  display: none;
+  position: static;
+  // margin-top: 32px;
+  margin: 0;
+  padding: 0 50px;
+  color: white;
 }
 
 #react-root {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	background-color: blue;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: blue;
 
-	#youTubePlayer1 {
-		flex: 1;
-		position: relative;
-		width: 100%;
-		// height: calc(100vh-32px);
-		padding: 50px;
-		background-color: black;
-		/* padding-bottom: 56.25%; */
-		iframe {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-		}
-	}
+  #youTubePlayer1 {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    // height: calc(100vh-32px);
+    padding: 50px;
+    background-color: black;
+    /* padding-bottom: 56.25%; */
+    iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  #titlebar-placeholder {
+    height: $TITLEBAR_HEIGHT;
+  }
 
-	#statusbar {
-		// width: 100%;
-		height: 20px;
-		background-color: $TITLEBAR-BG;
-	}
+  #statusbar {
+    // width: 100%;
+    height: 20px;
+    background-color: $TITLEBAR-BG;
+  }
 }
 
 .notification-close {
-	position: absolute;
-	right: 5px;
-	bottom: 5px;
-	/* This are approximated values, and the rest of your styling goes here */
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  /* This are approximated values, and the rest of your styling goes here */
 }

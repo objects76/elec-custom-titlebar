@@ -13,7 +13,7 @@ let settings;
 if (settings === undefined) {
     settings = require('electron-settings');
 
-    const appName = 'APP-NAME-HERE';
+    const appName = 'seamless-titlebar';
     settings.configure({
         numSpaces: 4,
         prettify: true

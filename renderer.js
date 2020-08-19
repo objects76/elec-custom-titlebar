@@ -1,5 +1,6 @@
 const remote = require('electron').remote;
-const { desktopCapturer } = require('electron');
+const { shell } = require('electron');
+const { app } = remote;
 const win = remote.getCurrentWindow(); /* Note this is different to the
 html global `window` variable */
 
@@ -77,12 +78,22 @@ delegate(menubar, "li", "click", (e) => {
             notifyMe(e.target.innerText);
             break;
         case 'Full screenshot':
-            fullscreenScreenshot(function (base64data) {
-                // Draw image in the img tag
-                document.getElementById("my-preview").setAttribute("src", base64data);
-            }, "image/png");
+            fullscreenScreenshot(null, "image/jpeg");
+            // fullscreenScreenshot(function (base64data) {
+            //     document.getElementById("my-preview").setAttribute("src", base64data);
+            // }, "image/png");
             break;
         case 'App screenshot':
+            break;
+        case 'Open Data Folder':
+            // shell.openExternal('https://github.com');
+            shell.openExternal(app.getPath('userData'));
+            break;
+        case 'Exit':
+            win.close();
+            break;
+        default:
+            window.assert("Not handled:" + e.target.innerText);
             break;
     }
     //menubar.classList.toggle("opened");

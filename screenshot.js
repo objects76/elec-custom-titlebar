@@ -1,8 +1,11 @@
 
 const { desktopCapturer } = require('electron');
+const { app } = require('electron').remote;
+const fs = require('fs');
+const path = require('path');
+
 /**
 * Create a screenshot of the entire screen using the desktopCapturer module of Electron.
-*
 * @param callback {Function} callback receives as first parameter the base64 string of the image
 * @param imageFormat {String} Format of the image to generate ('image/jpeg' or 'image/png')
 **/
@@ -11,14 +14,13 @@ module.exports.fullscreenScreenshot = function (callback, imageFormat) {
     this.callback = callback;
     imageFormat = imageFormat || 'image/jpeg';
 
-    this.handleStream = (stream) => {
+    this.handleStream = (stream, sourceId) => {
         // Create hidden video tag
         var video = document.createElement('video');
         video.style.cssText = 'position:absolute;top:-10000px;left:-10000px;';
 
-
         // Event connected to stream
-        video.onloadedmetadata = function () {
+        video.onloadedmetadata = async function () {
             // Set video ORIGINAL height (screenshot)
             video.style.height = this.videoHeight + 'px'; // videoHeight
             video.style.width = this.videoWidth + 'px'; // videoWidth
@@ -26,18 +28,26 @@ module.exports.fullscreenScreenshot = function (callback, imageFormat) {
             video.play();
 
             // Create canvas
-            let srcCanvas = document.createElement('canvas');
-            srcCanvas.width = this.videoWidth;
-            srcCanvas.height = this.videoHeight;
-            let ctx = srcCanvas.getContext('2d');
+            var canvas = document.createElement('canvas');
+            canvas.width = this.videoWidth;
+            canvas.height = this.videoHeight;
+            var ctx = canvas.getContext('2d');
             // Draw video on canvas
-            ctx.drawImage(video, 0, 0, srcCanvas.width, srcCanvas.height);
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
             if (_this.callback) {
                 // Save screenshot to base64
-                _this.callback(srcCanvas.toDataURL(imageFormat));
+                _this.callback(canvas.toDataURL(imageFormat));
             } else {
-                console.log('Need callback!');
+                const filePath = path.join(app.getPath('userData'), sourceId.replace(/:/g, '_') + '.jpeg');
+                console.log('output:', filePath);
+
+                const url = canvas.toDataURL(imageFormat, 0.8);
+                // remove Base64 stuff from the Image
+                const base64Data = url.replace(/^data:image\/jpeg;base64,/, "");
+                fs.writeFile(filePath, base64Data, 'base64', function (err) {
+                    if (err) console.log(err);
+                });
             }
 
             // Remove hidden video tag
@@ -53,14 +63,15 @@ module.exports.fullscreenScreenshot = function (callback, imageFormat) {
     };
 
     this.handleError = function (e) {
-        console.log('fullscreenScreenshot:', e);
+        console.log(e);
     };
 
-    desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources => {
+    desktopCapturer.getSources({ types: ['screen', 'window'] }).then(async sources => {
         console.log(sources);
 
         for (const source of sources) {
             // Filter: main screen
+            console.log(source);
             if ((source.name === "Entire screen") || (source.name === "Screen 1") || (source.name === "Screen 2")) {
                 try {
                     const stream = await navigator.mediaDevices.getUserMedia({
@@ -77,7 +88,7 @@ module.exports.fullscreenScreenshot = function (callback, imageFormat) {
                         }
                     });
 
-                    _this.handleStream(stream);
+                    _this.handleStream(stream, source.id);
                 } catch (e) {
                     _this.handleError(e);
                 }

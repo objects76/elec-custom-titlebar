@@ -1,6 +1,8 @@
 const remote = require('electron').remote;
 const { shell } = require('electron');
-const { app } = remote;
+const { app, dialog } = remote;
+const { writeFile } = require('fs');
+
 const win = remote.getCurrentWindow(); /* Note this is different to the
 html global `window` variable */
 
@@ -92,13 +94,23 @@ delegate(menubar, "li", "click", async (e) => {
         case 'Exit':
             win.close();
             break;
-        case 'Start Desktop Stream':
-            const video = document.getElementById('main');
-            if (video.srcObject) {
-                video.srcObject.getTracks()[0].stop();
-                video.srcObject = null;
+        case 'Stop Desktop Stream':
+            {
+                const video = document.getElementById('video-main');
+                if (video.srcObject) {
+                    video.srcObject.getTracks()[0].stop();
+                    video.srcObject = null;
+                }
+                doMediaRecorder(false, null); // stop.
+                e.target.innerText = "Start Desktop Stream";
             }
-            else {
+            break;
+        case 'Start Desktop Stream':
+            {
+                e.target.innerText = "Stop Desktop Stream";
+                const video = document.getElementById('video-main');
+                //console.assert(video.srcObject === null);
+
                 const stream = await getDesktopStream('Screen 2');
                 console.log(video.src);
                 console.log(video.srcObject);
@@ -108,9 +120,11 @@ delegate(menubar, "li", "click", async (e) => {
                 console.log(stream);
                 console.log(video.src);
                 video.play();
-                setTimeout(() => video.pause(), 300);
+                //setTimeout(() => video.pause(), 300);
+                doMediaRecorder(true, stream);
             }
             break;
+
         default:
             console.warn("Not handled:" + e.target.innerText);
             break;
@@ -119,3 +133,46 @@ delegate(menubar, "li", "click", async (e) => {
 });
 
 
+// recorder
+let mediaRecorder = null;
+function doMediaRecorder(start, stream) {
+    return;
+    if (mediaRecorder && !start) {
+        console.log("stop record");
+        mediaRecorder.stop();
+        //mediaRecorder = null;
+    }
+    // Create the Media Recorder
+    if (start) {
+        console.log("start record");
+        const options = { mimeType: 'video/webm; codecs=vp9' };
+        mediaRecorder = new MediaRecorder(stream, options);
+
+        // Register Event Handlers
+        mediaRecorder.ondataavailable = (e) => {
+            console.log('video data available');
+            recordedChunks.push(e.data);
+        };
+
+        // call   mediaRecorder.stop();
+        mediaRecorder.onstop = async (e) => {
+
+            const blob = new Blob(recordedChunks, {
+                type: 'video/webm; codecs=vp9'
+            });
+
+            const buffer = Buffer.from(await blob.arrayBuffer());
+
+            const { filePath } = await dialog.showSaveDialog({
+                buttonLabel: 'Save video',
+                defaultPath: `vid-${Date.now()}.webm`
+            });
+
+            if (filePath) {
+                writeFile(filePath, buffer, () => console.log('video saved successfully!'));
+            }
+
+            mediaRecorder = null;
+        };
+    }
+}

@@ -9,7 +9,7 @@ module.exports.notifyMe = function (msg, detail = null) {
     function notyObj() {
         let notification = new Notification(msg, {
             body: detail ? detail : msg,
-            icon: "icons/code_70x70.png",
+            icon: "icons/vscode-70x70.png",
         });
         setTimeout(notification.close.bind(notification), 4000);
     }

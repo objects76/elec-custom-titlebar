@@ -24,14 +24,17 @@ function createWindow() {
 		mainWindow.loadURL("http://localhost:4500/"); // with live server.
 	} else mainWindow.loadFile("index.html");
 
-	settings.loadWindowSettings(mainWindow, "main");
+
 	mainWindow.on("close", () => {
 		settings.saveWindowSettings(mainWindow, "main");
 	});
 	mainWindow.on("closed", () => {
 		mainWindow = null;
 	});
-	mainWindow.once("ready-to-show", () => mainWindow.show());
+	mainWindow.once("ready-to-show", () => {
+		settings.loadWindowSettings(mainWindow, "main");
+		mainWindow.show();
+	});
 }
 
 app.on("ready", createWindow);

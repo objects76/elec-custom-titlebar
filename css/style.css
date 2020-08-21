@@ -270,27 +270,13 @@ body {
   display: none;
 }
 
-#main {
+#video-main {
   display: block;
+  outline: none;
   height: calc(100% - 32px);
   margin-top: 32px;
   padding: 20px;
   overflow-y: auto;
-}
-
-#main textarea {
-  width: 100%;
-}
-
-#main .textwrapper {
-  border: 1px solid #999999;
-  margin: 5px 0;
-  padding: 3px;
-}
-
-#main p {
-  margin-top: 10px;
-  color: gray;
 }
 
 #main2 {

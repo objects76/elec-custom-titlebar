@@ -66,7 +66,12 @@
                   <li><a href="#">Open Configuration</a></li>
                   <li><a href="#">Add Configuration</a></li>
                   <li class="separator"></li>
-                  <li><a href="#" onclick="LaunchURLScript(); return false;">Run as application</a></li>
+                  <li>
+                    <a href="#" onclick="LaunchURLScript(); return false;"
+                      >Run as application</a
+                    >
+                  </li>
+                  <li><a href="#">Start Desktop Stream</a></li>
                 </ul>
               </li>
               <li>
@@ -96,7 +101,11 @@
             </div>
 
             <div class="button" id="restore-button">
-              <img class="icon" src="icons/restore-w-10.png" draggable="false" />
+              <img
+                class="icon"
+                src="icons/restore-w-10.png"
+                draggable="false"
+              />
             </div>
 
             <div class="button" id="close-button">
@@ -107,6 +116,14 @@
       </div>
 
       <div id="youTubePlayer1"></div>
+      <video
+        id="video-main"
+        type="video/mp4"
+        preload="metadata"
+        loop
+        controls
+        style="display: none;"
+      ></video>
 
       <div id="statusbar"></div>
     </div>
@@ -115,7 +132,11 @@
   <script>
     function delegate(target, selector, eventName, handler) {
       target.addEventListener(eventName, (e) => {
-        for (let target = e.target; target && target != this; target = target.parentNode) {
+        for (
+          let target = e.target;
+          target && target != this;
+          target = target.parentNode
+        ) {
           // loop parent nodes from the target to the delegation node
           if (target.matches(selector)) {
             handler(e);
@@ -155,9 +176,29 @@
     }
   </script>
   <script>
+    // https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture
+    async function startCapture() {
+      let displayMediaOptions = {
+        video: {
+          cursor: "always",
+        },
+        audio: false,
+      };
+      try {
+        return await navigator.mediaDevices.getDisplayMedia(
+          displayMediaOptions
+        );
+      } catch (err) {
+        console.error("Error: " + err);
+      }
+      return null;
+    }
+  </script>
+
+  <script>
     // add menubar event handler.
     const menubar = document.querySelector("#menubar > ul");
-    delegate(menubar, "li", "click", (e) => {
+    delegate(menubar, "li", "click", async (e) => {
       console.log(e.target.innerText);
       switch (e.target.innerText) {
         case "Logo Design":
@@ -167,6 +208,26 @@
           break;
         case "Add Configuration":
           notifyMe(e.target.innerText);
+          break;
+        case "Stop Desktop Stream":
+          e.target.innerText = "Start Desktop Stream";
+          let tracks = document
+            .querySelector("#video-main")
+            .srcObject.getTracks();
+          tracks.forEach((track) => track.stop());
+          document.querySelector("#video-main").srcObject = null;
+
+          document.querySelector("#youTubePlayer1").style.display = "block";
+          document.querySelector("#video-main").style.display = "none";
+          break;
+        case "Start Desktop Stream":
+          e.target.innerText = "Stop Desktop Stream";
+          document.querySelector("#youTubePlayer1").style.display = "none";
+          document.querySelector("#video-main").style.display = "block";
+          document.querySelector(
+            "#video-main"
+          ).srcObject = await startCapture();
+          document.querySelector("#video-main").play();
           break;
       }
       menubar.classList.toggle("opened");
@@ -182,14 +243,18 @@
       document.documentElement.requestFullscreen(); // to fullscreen mode
     });
 
-    document.getElementById("restore-button").addEventListener("click", (event) => {
-      document.body.classList.remove("maximized");
-      document.exitFullscreen(); // restore from fullscreen mode
-    });
+    document
+      .getElementById("restore-button")
+      .addEventListener("click", (event) => {
+        document.body.classList.remove("maximized");
+        document.exitFullscreen(); // restore from fullscreen mode
+      });
 
-    document.getElementById("close-button").addEventListener("click", (event) => {
-      win.close();
-    });
+    document
+      .getElementById("close-button")
+      .addEventListener("click", (event) => {
+        win.close();
+      });
   </script>
 
   <!-- youtube player -->

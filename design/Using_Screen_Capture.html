@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #video {
+        border: 1px solid #999;
+        width: 98%;
+        max-width: 860px;
+      }
+
+      .error {
+        color: red;
+      }
+
+      .warn {
+        color: orange;
+      }
+
+      .info {
+        color: darkgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture#Examples -->
+
+    <p>
+      This example shows you the contents of the selected part of your display.
+      Click the Start Capture button to begin.
+    </p>
+
+    <p>
+      <button id="start">Start Capture</button>
+      <button id="stop">Stop Capture</button>
+      <button id="test">Test MedaiSource</button>
+    </p>
+
+    <video id="video" autoplay></video>
+    <br />
+
+    <strong>Log:</strong>
+    <br />
+    <pre id="log"></pre>
+  </body>
+
+  <script>
+    const videoElem = document.getElementById("video");
+
+    document.getElementById("start").addEventListener(
+      "click",
+      function (evt) {
+        startCapture();
+      },
+      false
+    );
+    document.getElementById("stop").addEventListener(
+      "click",
+      function (evt) {
+        stopCapture();
+      },
+      false
+    );
+    document.getElementById("test").addEventListener(
+      "click",
+      function (evt) {
+        enumMedias();
+      },
+      false
+    );
+
+    // Options for getDisplayMedia()
+
+    // logging...
+    const logElem = document.getElementById("log");
+    console.log = (msg) => (logElem.innerHTML += `${msg}<br>`);
+    console.error = (msg) =>
+      (logElem.innerHTML += `<span class="error">${msg}</span><br>`);
+    console.warn = (msg) =>
+      (logElem.innerHTML += `<span class="warn">${msg}<span><br>`);
+    console.info = (msg) =>
+      (logElem.innerHTML += `<span class="info">${msg}</span>`);
+
+    async function startCapture() {
+      logElem.innerHTML = "";
+      let displayMediaOptions = {
+        // https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints
+        video: {
+          cursor: "always",
+          displaySurface: "monitor",
+          logicalSurface: false,
+        },
+        audio: false,
+      };
+      try {
+        videoElem.srcObject = await navigator.mediaDevices.getDisplayMedia(
+          displayMediaOptions
+        );
+        dumpOptionsInfo();
+      } catch (err) {
+        console.error("Error: " + err);
+      }
+    }
+
+    function stopCapture(evt) {
+      let tracks = videoElem.srcObject.getTracks();
+
+      tracks.forEach((track) => track.stop());
+      videoElem.srcObject = null;
+    }
+
+    function enumMedias() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+        console.log("enumerateDevices() not supported.");
+        return;
+      }
+
+      // List cameras and microphones.
+      navigator.mediaDevices
+        .enumerateDevices()
+        .then(function (devices) {
+          devices.forEach(function (device) {
+            console.log(
+              device.kind + ": " + device.label + " id = " + device.deviceId
+            );
+          });
+        })
+        .catch(function (err) {
+          console.log(err.name + ": " + err.message);
+        });
+    }
+
+    function dumpOptionsInfo() {
+      const videoTrack = videoElem.srcObject.getVideoTracks()[0];
+
+      console.info("Track settings:");
+      console.info(JSON.stringify(videoTrack.getSettings(), null, 2));
+      console.info("Track constraints:");
+      console.info(JSON.stringify(videoTrack.getConstraints(), null, 2));
+    }
+  </script>
+</html>

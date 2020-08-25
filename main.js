@@ -19,9 +19,12 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
+    backgroundColor: "#000000",
+    //transparent: true,
     // mac
     fullscreenable: true,
-    //simpleFullscreen: true,
+    // simpleFullscreen: true,
+    //titleBarStyle: "hiddenInset",
   });
 
   if (isDev) {
@@ -44,9 +47,7 @@ app.on("ready", createWindow);
 
 // Quit when all windows are closed.
 app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+  if (process.platform !== "darwin" || isDev) app.quit();
 });
 
 app.on("activate", function () {

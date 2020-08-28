@@ -98,14 +98,15 @@ delegate(menubar, "li", "click", async (e) => {
     case "Open Data Folder":
       // shell.openExternal('https://github.com');
       console.log("userData=", app.getPath("userData"));
-      //shell.openExternal(app.getPath("userData"));
-      shell.openItem(app.getPath("userData"));
+      shell.openExternal("file://" + app.getPath("userData"));
+      //shell.openItem(app.getPath("userData"));
       break;
     case "Exit":
       win.close();
       break;
     case "Stop Desktop Stream":
       {
+        const uTube = document.getElementById("youTubePlayer1");
         const video = document.getElementById("video-main");
         if (video.srcObject) {
           video.srcObject.getTracks()[0].stop();
@@ -113,11 +114,14 @@ delegate(menubar, "li", "click", async (e) => {
         }
         doMediaRecorder(false, null); // stop.
         e.target.innerText = "Start Desktop Stream";
+        video.style.display = "none";
+        uTube.style.display = "block";
       }
       break;
     case "Start Desktop Stream":
       {
         e.target.innerText = "Stop Desktop Stream";
+        const uTube = document.getElementById("youTubePlayer1");
         const video = document.getElementById("video-main");
         //console.assert(video.srcObject === null);
 
@@ -134,6 +138,8 @@ delegate(menubar, "li", "click", async (e) => {
         video.play();
         //setTimeout(() => video.pause(), 300);
         doMediaRecorder(true, stream);
+        video.style.display = "block";
+        uTube.style.display = "none";
       }
       break;
 

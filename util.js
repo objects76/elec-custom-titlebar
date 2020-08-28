@@ -14,11 +14,7 @@ module.exports.delegate = function (target, selector, eventName, handler) {
   });
 };
 
-const os = require("os");
-const isWin32 = os.platform() === "win32";
-const isMac = os.platform() === "darwin";
-const isLinux = !isWin32 && !isMac;
-
-module.exports.isWin32 = isWin32;
-module.exports.isMac = isMac;
-module.exports.isLinux = isLinux;
+module.exports.isWin32 = process.platform === "win32";
+module.exports.isMac = process.platform === "darwin";
+module.exports.isLinux =
+  process.platform !== "win32" && process.platform !== "darwin";

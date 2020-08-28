@@ -26,14 +26,7 @@
                   <li><a href="#">Exit</a></li>
                 </ul>
               </li>
-              <li>
-                <a href="#">About</a>
-                <ul>
-                  <li><a href="#" class="checked">Logo Design</a></li>
-                  <li><a href="#">Card Design</a></li>
-                  <li><a href="#">Poster Design</a></li>
-                </ul>
-              </li>
+
               <li>
                 <a href="#">Services</a>
                 <ul>
@@ -69,11 +62,27 @@
               </li>
               <li>
                 <a href="#">Tools</a>
-                <ul>
+                <ul id="electron-tools">
                   <li><a href="#">Full screenshot</a></li>
                   <li><a href="#">App screenshot</a></li>
                   <li><a href="#">Open Data Folder</a></li>
                   <li><a href="#">Start Desktop Stream</a></li>
+                </ul>
+                <ul id="web-tools">
+                  <li>
+                    <a href="#" onclick="LaunchURLScript(); return false;"
+                      >Run as application</a
+                    >
+                  </li>
+                  <li><a href="#">Start Desktop Stream</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">About</a>
+                <ul>
+                  <li><a href="#" class="checked">Logo Design</a></li>
+                  <li><a href="#">Card Design</a></li>
+                  <li><a href="#">Poster Design</a></li>
                 </ul>
               </li>
             </ul>
@@ -81,7 +90,7 @@
 
           <!-- caption -->
           <div id="caption">
-            <span>Test Custom Titlebar in Electron</span>
+            <span>Test Custom Titlebar in Electron or Web</span>
           </div>
 
           <!-- system buttons -->
@@ -95,7 +104,11 @@
             </div>
 
             <div class="button" id="restore-button">
-              <img class="icon" src="icons/restore-w-10.png" draggable="false" />
+              <img
+                class="icon"
+                src="icons/restore-w-10.png"
+                draggable="false"
+              />
             </div>
 
             <div class="button" id="close-button">
@@ -106,23 +119,48 @@
       </div>
       <div id="titlebar-placeholder"></div>
       <img id="my-preview" />
-      <!-- <div id="youTubePlayer1"></div> -->
 
-      <video id="video-main" src="./icons/720p.mp4" type="video/mp4" preload="metadata" loop controls></video>
-      <!-- <video id="main" controls></video> -->
-      <div id="statusbar">....</div>
+      <div id="youTubePlayer1"></div>
+      <video
+        id="video-main"
+        type="video/mp4"
+        preload="metadata"
+        loop
+        controls
+        style="display: none"
+      ></video>
+
+      <div id="statusbar"></div>
     </div>
   </body>
 
-  <!-- add menubar event handler. -->
+  <!-- platform adjusting -->
   <script>
-    require("./renderer.js");
+    function isElectron() {
+      return (
+        typeof process !== "undefined" &&
+        process.versions &&
+        process.versions.electron !== undefined
+      );
+    }
+    if (isElectron()) {
+      document.querySelector("#web-tools").style.display = "none";
+      require("./renderer-electron.js");
+    } else {
+      document.querySelector("#electron-tools").style.display = "none";
+
+      // import("./renderer-web.js"); // ES6
+      let script = document.createElement("script");
+      script.src = "./renderer-web.js";
+      let ref = document.querySelector("script");
+      ref.parentNode.insertBefore(script, ref);
+    }
   </script>
 
   <!-- youtube player -->
   <script>
     if (document.getElementById("youTubePlayer1")) {
-      const video_id = "cr5kcR78lGQ";
+      const video_id = "PxUlXFgJMyc?t=143";
       // loading youtube API
       let tag = document.createElement("script");
       tag.src = "https://www.youtube.com/player_api";

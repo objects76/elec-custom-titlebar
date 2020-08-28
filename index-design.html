@@ -65,13 +65,6 @@
                   <li class="separator"></li>
                   <li><a href="#">Open Configuration</a></li>
                   <li><a href="#">Add Configuration</a></li>
-                  <li class="separator"></li>
-                  <li>
-                    <a href="#" onclick="LaunchURLScript(); return false;"
-                      >Run as application</a
-                    >
-                  </li>
-                  <li><a href="#">Start Desktop Stream</a></li>
                 </ul>
               </li>
               <li>
@@ -122,7 +115,7 @@
         preload="metadata"
         loop
         controls
-        style="display: none;"
+        style="display: none"
       ></video>
 
       <div id="statusbar"></div>
@@ -259,7 +252,8 @@
 
   <!-- youtube player -->
   <script>
-    const video_id = "8n80LX2LGjY";
+    // https://youtu.be/PxUlXFgJMyc?t=143
+    const video_id = "PxUlXFgJMyc?t=143";
     // loading youtube API
     let tag = document.createElement("script");
     tag.src = "https://www.youtube.com/player_api";
@@ -277,7 +271,7 @@
         videoId: video_id,
         playerVars: { rel: 0 }, //추천영상 안보여주게 설정
         events: {
-          //onReady: onPlayerReady, //로딩할때 이벤트 실행
+          onReady: onPlayerReady, //로딩할때 이벤트 실행
           onStateChange: onPlayerStateChange, //플레이어 상태 변화시 이벤트실행
         },
       }); //youTubePlayer1셋팅

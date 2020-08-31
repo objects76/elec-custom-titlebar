@@ -31,20 +31,40 @@ function handleWindowControls() {
   }
 
   // Make minimise/maximise/restore/close buttons work when they are clicked
+  function min_max_window(maximize) {
+    if (maximize) {
+      document.body.classList.add("maximized");
+      if (isMac) win.setFullScreen(true);
+      else win.maximize();
+    } else {
+      document.body.classList.remove("maximized");
+      if (isMac) win.setFullScreen(false);
+      else win.unmaximize();
+    }
+  }
+
+  document.querySelector("#drag-region").addEventListener("dblclick", () => {
+    if (isMac) {
+      if (win.isMaximized()) win.unmaximize();
+      else win.maximize();
+      if (win.isFullScreen()) min_max_window(false);
+    } else {
+      min_max_window(document.body.classList.contains("maximized") == false);
+    }
+  });
+
   document.getElementById("min-button").addEventListener("click", (event) => {
     win.minimize();
   });
 
   document.getElementById("max-button").addEventListener("click", (event) => {
-    if (isMac) win.setFullScreen(true);
-    else win.maximize();
+    min_max_window(true);
   });
 
   document
     .getElementById("restore-button")
     .addEventListener("click", (event) => {
-      if (isMac) win.setFullScreen(false);
-      else win.unmaximize();
+      min_max_window(false);
     });
 
   document.getElementById("close-button").addEventListener("click", (event) => {
@@ -52,21 +72,17 @@ function handleWindowControls() {
   });
 
   // Toggle maximise/restore buttons when maximisation/unmaximisation occurs
-  toggleMaxRestoreButtons();
-  if (isMac) {
-    win.on("enter-full-screen", toggleMaxRestoreButtons);
-    win.on("leave-full-screen", toggleMaxRestoreButtons);
+  // if (isMac) {
+  //   win.on("enter-full-screen", ()=> document.body.classList.add("maximized") ));
+  //   win.on("leave-full-screen", ()=> document.body.classList.remove("maximized") );
+  // } else {
+  //   win.on("maximize", ()=> document.body.classList.add("maximized") );
+  //   win.on("unmaximize", ()=> document.body.classList.remove("maximized") );
+  // }
+  if (win.isMaximized() || win.isFullScreen()) {
+    document.body.classList.add("maximized");
   } else {
-    win.on("maximize", toggleMaxRestoreButtons);
-    win.on("unmaximize", toggleMaxRestoreButtons);
-  }
-
-  function toggleMaxRestoreButtons() {
-    if (win.isMaximized() || win.isFullScreen()) {
-      document.body.classList.add("maximized");
-    } else {
-      document.body.classList.remove("maximized");
-    }
+    document.body.classList.remove("maximized");
   }
 }
 
@@ -84,7 +100,7 @@ delegate(menubar, "li", "click", async (e) => {
     case "Poster Design":
       e.target.classList.toggle("checked");
       break;
-    case "Add Configuration":
+    case "Show Notification":
       notifyMe(e.target.innerText);
       break;
     case "Full screenshot":

@@ -335,3 +335,7 @@ $APPICON_SIZE: 30px;
   bottom: 5px;
   /* This are approximated values, and the rest of your styling goes here */
 }
+
+#caption span::after {
+  content: attr(platform);
+}

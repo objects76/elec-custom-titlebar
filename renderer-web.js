@@ -69,7 +69,7 @@ delegate(menubar, "li", "click", async (e) => {
     case "Poster Design":
       e.target.classList.toggle("checked");
       break;
-    case "Add Configuration":
+    case "Show Notification":
       notifyMe(e.target.innerText);
       break;
     case "Stop Desktop Stream":
@@ -92,23 +92,34 @@ delegate(menubar, "li", "click", async (e) => {
   menubar.classList.toggle("opened");
 });
 
+function min_max_window(maximize) {
+  if (maximize) {
+    document.body.classList.add("maximized");
+    document.documentElement.requestFullscreen(); // to fullscreen mode
+  } else {
+    document.body.classList.remove("maximized");
+    document.exitFullscreen(); // restore from fullscreen mode
+  }
+}
+document.querySelector("#drag-region").addEventListener("dblclick", () => {
+  min_max_window(document.body.classList.contains("maximized") == false);
+});
+
 // system buton settings
 document.getElementById("min-button").addEventListener("click", (event) => {
-  Window.minimize();
+  notifyMe("Click minimize.");
 });
 
 document.getElementById("max-button").addEventListener("click", (event) => {
-  document.body.classList.add("maximized");
-  document.documentElement.requestFullscreen(); // to fullscreen mode
+  min_max_window(true);
 });
 
 document.getElementById("restore-button").addEventListener("click", (event) => {
-  document.body.classList.remove("maximized");
-  document.exitFullscreen(); // restore from fullscreen mode
+  min_max_window(false);
 });
 
 document.getElementById("close-button").addEventListener("click", (event) => {
-  win.close();
+  notifyMe("click close.");
 });
 
 //  <!-- open external app -->

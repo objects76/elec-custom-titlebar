@@ -57,7 +57,7 @@
                   </li>
                   <li class="separator"></li>
                   <li><a href="#">Open Configuration</a></li>
-                  <li><a href="#">Add Configuration</a></li>
+                  <li><a href="#">Show Notification</a></li>
                 </ul>
               </li>
               <li>
@@ -90,7 +90,7 @@
 
           <!-- caption -->
           <div id="caption">
-            <span>Test Custom Titlebar in Electron or Web</span>
+            <span>Test Custom Titlebar in </span>
           </div>
 
           <!-- system buttons -->
@@ -136,6 +136,10 @@
 
   <!-- platform adjusting -->
   <script>
+    document
+      .querySelector("#caption span")
+      .setAttribute("platform", isElectron() ? "Electron" : "Web");
+
     function isElectron() {
       return (
         typeof process !== "undefined" &&

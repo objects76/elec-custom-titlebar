@@ -31,7 +31,7 @@ function handleWindowControls() {
   }
 
   // Make minimise/maximise/restore/close buttons work when they are clicked
-  function min_max_window(maximize) {
+  function maxUnmaxWindow(maximize) {
     if (maximize) {
       document.body.classList.add("maximized");
       if (isMac) win.setFullScreen(true);
@@ -47,9 +47,9 @@ function handleWindowControls() {
     if (isMac) {
       if (win.isMaximized()) win.unmaximize();
       else win.maximize();
-      if (win.isFullScreen()) min_max_window(false);
+      if (win.isFullScreen()) maxUnmaxWindow(false);
     } else {
-      min_max_window(document.body.classList.contains("maximized") == false);
+      maxUnmaxWindow(document.body.classList.contains("maximized") == false);
     }
   });
 
@@ -58,13 +58,13 @@ function handleWindowControls() {
   });
 
   document.getElementById("max-button").addEventListener("click", (event) => {
-    min_max_window(true);
+    maxUnmaxWindow(true);
   });
 
   document
     .getElementById("restore-button")
     .addEventListener("click", (event) => {
-      min_max_window(false);
+      maxUnmaxWindow(false);
     });
 
   document.getElementById("close-button").addEventListener("click", (event) => {

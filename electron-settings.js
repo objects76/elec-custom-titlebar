@@ -30,18 +30,16 @@ module.exports.loadWindowSettings = function (mainWindow, winName) {
   if (settings.getSync(winName + "-devtool"))
     mainWindow.webContents.openDevTools();
   mainWindow.setBounds(settings.getSync(winName + "-bounds"));
-  if (settings.getSync(winName + "-maximized")) {
-    if (isMac) mainWindow.setFullScreen(true);
-    else mainWindow.maximize();
-  }
+
+  if (settings.getSync(winName + "-fullscreen")) mainWindow.setFullScreen(true);
+  if (settings.getSync(winName + "-maximized")) mainWindow.maximize();
 };
 
 module.exports.saveWindowSettings = function (mainWindow, winName) {
   settings.setSync(winName + "-devtool", mainWindow.isDevToolsOpened());
-  settings.setSync(
-    winName + "-maximized",
-    mainWindow.isMaximized() || mainWindow.isFullScreen()
-  );
+  settings.setSync(winName + "-maximized", mainWindow.isMaximized());
+  settings.setSync(winName + "-fullscreen", mainWindow.isFullScreen());
+
   if (mainWindow.isNormal())
     settings.setSync(winName + "-bounds", mainWindow.getBounds());
 };

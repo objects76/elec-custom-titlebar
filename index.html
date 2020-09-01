@@ -172,7 +172,7 @@
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
       // set player variable
-      var youTubePlayer1;
+      let youTubePlayer1;
 
       function onYouTubeIframeAPIReady() {
         youTubePlayer1 = new YT.Player("youTubePlayer1", {
@@ -180,7 +180,7 @@
           height: "360",
           width: "640",
           videoId: video_id,
-          playerVars: { rel: 0 }, //추천영상 안보여주게 설정
+          playerVars: { rel: 1, controls: 0 }, //추천영상 안보여주게 설정
           events: {
             //onReady: onPlayerReady, //로딩할때 이벤트 실행
             onStateChange: onPlayerStateChange, //플레이어 상태 변화시 이벤트실행

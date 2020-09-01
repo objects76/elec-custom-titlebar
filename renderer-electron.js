@@ -79,7 +79,8 @@ function handleWindowControls() {
   //   win.on("maximize", ()=> document.body.classList.add("maximized") );
   //   win.on("unmaximize", ()=> document.body.classList.remove("maximized") );
   // }
-  if (win.isMaximized() || win.isFullScreen()) {
+
+  if (win.isFullScreen() || (win.isMaximized() && !isMac)) {
     document.body.classList.add("maximized");
   } else {
     document.body.classList.remove("maximized");

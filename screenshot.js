@@ -26,10 +26,10 @@ module.exports.getDesktopStream = async function (sourceName) {
             mandatory: {
               chromeMediaSource: "desktop",
               chromeMediaSourceId: source.id,
-              minWidth: 1280,
               maxWidth: 4000,
-              minHeight: 720,
               maxHeight: 4000,
+              minWidth: 430,
+              minHeight: 320,
             },
           },
         });
@@ -124,10 +124,10 @@ module.exports.fullscreenScreenshot = function (callback, imageFormat) {
               mandatory: {
                 chromeMediaSource: "desktop",
                 chromeMediaSourceId: source.id,
-                minWidth: 1280,
                 maxWidth: 4000,
-                minHeight: 720,
                 maxHeight: 4000,
+                minWidth: 430,
+                minHeight: 320,
               },
             },
           });

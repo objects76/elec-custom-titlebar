@@ -22,6 +22,7 @@ window.onbeforeunload = (event) => {
 };
 
 function handleWindowControls() {
+  const sysbtncls = document.getElementById("sys-btns").classList;
   // menubar class settings
   const rootMenuItems = document.querySelectorAll("#menubar > ul > li");
   for (let li of rootMenuItems) {
@@ -31,59 +32,62 @@ function handleWindowControls() {
   }
 
   // Make minimise/maximise/restore/close buttons work when they are clicked
-  function maxUnmaxWindow(maximize) {
+  win.maxUnmaxWindow = (maximize) => {
     if (maximize) {
-      document.body.classList.add("maximized");
+      sysbtncls.add("maximized2");
+
       if (isMac) win.setFullScreen(true);
       else win.maximize();
     } else {
-      document.body.classList.remove("maximized");
+      sysbtncls.remove("maximized2");
+
       if (isMac) win.setFullScreen(false);
       else win.unmaximize();
     }
-  }
+  };
 
-  document.querySelector("#drag-region").addEventListener("dblclick", () => {
+  win.minimize2 = () => {
+    if (win.isFullScreen()) {
+      win.maxUnmaxWindow(false);
+      win.once("leave-full-screen", () => win.minimize());
+    } else win.minimize();
+  };
+
+  win.maximize2 = () => {
     if (isMac) {
-      if (win.isMaximized()) win.unmaximize();
-      else win.maximize();
-      if (win.isFullScreen()) maxUnmaxWindow(false);
+      win.isMaximized() ? win.unmaximize() : win.maximize();
+      if (win.isFullScreen()) win.maxUnmaxWindow(false);
     } else {
-      maxUnmaxWindow(document.body.classList.contains("maximized") == false);
+      win.maxUnmaxWindow(sysbtncls.contains("maximized2") == false);
     }
+  };
+  document.querySelector("#drag-region").addEventListener("dblclick", () => {
+    win.maximize2();
   });
 
   document.getElementById("min-button").addEventListener("click", (event) => {
-    win.minimize();
+    win.minimize2();
   });
 
   document.getElementById("max-button").addEventListener("click", (event) => {
-    maxUnmaxWindow(true);
+    win.maxUnmaxWindow(true);
   });
 
   document
     .getElementById("restore-button")
     .addEventListener("click", (event) => {
-      maxUnmaxWindow(false);
+      win.maxUnmaxWindow(false);
     });
 
   document.getElementById("close-button").addEventListener("click", (event) => {
     win.close();
   });
 
-  // Toggle maximise/restore buttons when maximisation/unmaximisation occurs
-  // if (isMac) {
-  //   win.on("enter-full-screen", ()=> document.body.classList.add("maximized") ));
-  //   win.on("leave-full-screen", ()=> document.body.classList.remove("maximized") );
-  // } else {
-  //   win.on("maximize", ()=> document.body.classList.add("maximized") );
-  //   win.on("unmaximize", ()=> document.body.classList.remove("maximized") );
-  // }
-
+  // set initial maxUnmax button visiblity
   if (win.isFullScreen() || (win.isMaximized() && !isMac)) {
-    document.body.classList.add("maximized");
+    sysbtncls.add("maximized2");
   } else {
-    document.body.classList.remove("maximized");
+    sysbtncls.remove("maximized2");
   }
 }
 

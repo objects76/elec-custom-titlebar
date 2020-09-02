@@ -70,9 +70,7 @@
                 </ul>
                 <ul id="web-tools">
                   <li>
-                    <a href="#" onclick="LaunchURLScript(); return false;"
-                      >Run as application</a
-                    >
+                    <a href="#">Run as Application</a>
                   </li>
                   <li><a href="#">Start Desktop Stream</a></li>
                 </ul>
@@ -153,11 +151,13 @@
     } else {
       document.querySelector("#electron-tools").style.display = "none";
 
-      // import("./renderer-web.js"); // ES6
-      let script = document.createElement("script");
-      script.src = "./renderer-web.js";
-      let ref = document.querySelector("script");
-      ref.parentNode.insertBefore(script, ref);
+      import("./renderer-web.js"); // ES6
+      import("./protocolcheck.js"); // ES6
+
+      // let script = document.createElement("script");
+      // script.src = "./renderer-web.js";
+      // let ref = document.querySelector("script");
+      // ref.parentNode.insertBefore(script, ref);
     }
   </script>
 

@@ -259,14 +259,14 @@ body {
           filter: brightness(80%);
 }
 
-.maximized #sys-btns #restore-button {
+#sys-btns.maximized2 #restore-button {
   display: -webkit-box !important;
   display: -ms-flexbox !important;
   display: flex !important;
 }
 
-.maximized #sys-btns #max-button {
-  display: none;
+#sys-btns.maximized2 #max-button {
+  display: none !important;
 }
 
 #video-main {

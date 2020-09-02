@@ -269,15 +269,24 @@ $APPICON_SIZE: 30px;
       filter: brightness(80%);
     }
   }
+
+  &.maximized2 {
+    #restore-button {
+      display: flex !important;
+    }
+    #max-button {
+      display: none !important;
+    }
+  }
 } // #sys-btns
 
-.maximized #sys-btns #restore-button {
-  display: flex !important;
-}
+// .maximized #sys-btns #restore-button {
+//   display: flex !important;
+// }
 
-.maximized #sys-btns #max-button {
-  display: none;
-}
+// .maximized #sys-btns #max-button {
+//   display: none;
+// }
 
 // content sections
 #video-main {

@@ -88,11 +88,14 @@ delegate(menubar, "li", "click", async (e) => {
       document.querySelector("#video-main").srcObject = await startCapture();
       document.querySelector("#video-main").play();
       break;
+    case "Run as Application":
+      LaunchURLScript();
+      break;
   }
   menubar.classList.toggle("opened");
 });
 
-function min_max_window(maximize) {
+function maxUnmaxWebWindow(maximize) {
   if (maximize) {
     document.body.classList.add("maximized");
     document.documentElement.requestFullscreen(); // to fullscreen mode
@@ -102,7 +105,7 @@ function min_max_window(maximize) {
   }
 }
 document.querySelector("#drag-region").addEventListener("dblclick", () => {
-  min_max_window(document.body.classList.contains("maximized") == false);
+  maxUnmaxWebWindow(document.body.classList.contains("maximized") == false);
 });
 
 // system buton settings
@@ -111,11 +114,11 @@ document.getElementById("min-button").addEventListener("click", (event) => {
 });
 
 document.getElementById("max-button").addEventListener("click", (event) => {
-  min_max_window(true);
+  maxUnmaxWebWindow(true);
 });
 
 document.getElementById("restore-button").addEventListener("click", (event) => {
-  min_max_window(false);
+  maxUnmaxWebWindow(false);
 });
 
 document.getElementById("close-button").addEventListener("click", (event) => {
@@ -124,9 +127,16 @@ document.getElementById("close-button").addEventListener("click", (event) => {
 
 //  <!-- open external app -->
 
+//import customProtocolCheck from "custom-protocol-check";
+
 function LaunchURLScript() {
-  var url = "JJKIMProtocol:";
+  let url = "JJKIMProtocol:";
   let path = "";
-  window.open(url + path);
-  self.focus();
+  //window.open(url + path);
+  //self.focus();
+
+  window.protocolCheck(url, function () {
+    alert("Protocol not recognized.\nPlease install the app.");
+  });
+  event.preventDefault ? event.preventDefault() : (event.returnValue = false);
 }

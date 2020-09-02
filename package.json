@@ -17,6 +17,7 @@
     "electron-builder": "^19.53.4"
   },
   "dependencies": {
+    "custom-protocol-check": "^1.1.0",
     "electron-settings": "^4.0.2",
     "notistack": "^0.9.17"
   }

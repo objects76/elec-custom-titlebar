@@ -1,6 +1,6 @@
 const { app, BrowserWindow } = require("electron");
 const settings = require("./electron-settings");
-
+const { isMac } = require("./util");
 const isDev = process.env.NODE_ENV === "dev";
 
 let mainWindow;
@@ -13,7 +13,11 @@ function createWindow() {
     height: 600,
     minWidth: 480,
     minHeight: 300,
+    frame: isMac ? true : false,
+    //frame: false,
+    titleBarStyle: "hidden",
     frame: false,
+
     show: false,
     //allowRendererProcessReuse: true,
     webPreferences: {

@@ -91,6 +91,9 @@ delegate(menubar, "li", "click", async (e) => {
     case "Run as Application":
       LaunchURLScript();
       break;
+    case "Release Notes":
+      ShowReleaseNotes();
+      break;
   }
   menubar.classList.toggle("opened");
 });
@@ -140,3 +143,5 @@ function LaunchURLScript() {
   });
   event.preventDefault ? event.preventDefault() : (event.returnValue = false);
 }
+
+function ShowReleaseNotes() {}

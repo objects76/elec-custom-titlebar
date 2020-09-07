@@ -1,6 +1,6 @@
 const remote = require("electron").remote;
 const { shell } = require("electron");
-const { app, dialog } = remote;
+const { app, dialog, BrowserWindow } = remote;
 const { writeFile } = require("fs");
 const { isMac } = require("./util");
 
@@ -22,7 +22,6 @@ window.onbeforeunload = (event) => {
 };
 
 function handleWindowControls() {
-  const sysbtncls = document.getElementById("sys-btns").classList;
   // menubar class settings
   const rootMenuItems = document.querySelectorAll("#menubar > ul > li");
   for (let li of rootMenuItems) {
@@ -34,17 +33,34 @@ function handleWindowControls() {
   // Make minimise/maximise/restore/close buttons work when they are clicked
   win.maxUnmaxWindow = function (maximize) {
     if (maximize) {
-      sysbtncls.add("maximized2");
+      // sysbtncls.add("maximized2");
 
       if (isMac) this.setFullScreen(true);
       else this.maximize();
     } else {
-      sysbtncls.remove("maximized2");
+      // sysbtncls.remove("maximized2");
 
       if (isMac) this.setFullScreen(false);
       else this.unmaximize();
     }
   }.bind(win);
+
+  const sysbtncls = document.getElementById("sys-btns").classList;
+  if (isMac) {
+    win.on("leave-full-screen", () => {
+      sysbtncls.remove("maximized2");
+    });
+    win.on("enter-full-screen", () => {
+      sysbtncls.add("maximized2");
+    });
+  } else {
+    win.on("maximize", () => {
+      sysbtncls.add("maximized2");
+    });
+    win.on("unmaximize", () => {
+      sysbtncls.remove("maximized2");
+    });
+  }
 
   win.minimize2 = function () {
     if (this.isFullScreen()) {
@@ -60,7 +76,7 @@ function handleWindowControls() {
       this.isMaximized() ? this.unmaximize() : this.maximize();
       if (this.isFullScreen()) this.maxUnmaxWindow(false);
     } else {
-      this.maxUnmaxWindow(sysbtncls.contains("maximized2") == false);
+      this.maxUnmaxWindow(this.isMaximized() == false);
     }
   }.bind(win);
 
@@ -166,7 +182,9 @@ delegate(menubar, "li", "click", async (e) => {
         uTube.style.display = "none";
       }
       break;
-
+    case "Release Notes#":
+      popup1();
+      break;
     default:
       console.warn("Not handled:" + e.target.innerText);
       break;
@@ -217,4 +235,26 @@ function doMediaRecorder(start, stream) {
       mediaRecorder = null;
     };
   }
+}
+
+var newWindow = null;
+function popup1() {
+  if (newWindow) {
+    newWindow.focus();
+    return;
+  }
+
+  newWindow = new BrowserWindow({
+    height: 800,
+    width: 600,
+    title: "",
+    minimizable: false,
+    fullscreenable: false,
+  });
+
+  newWindow.loadURL("file://" + __dirname + "/profile.html");
+
+  newWindow.on("closed", function () {
+    newWindow = null;
+  });
 }

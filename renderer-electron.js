@@ -31,36 +31,43 @@ function handleWindowControls() {
   }
 
   // Make minimise/maximise/restore/close buttons work when they are clicked
-  win.maxUnmaxWindow = function (maximize) {
-    if (maximize) {
-      // sysbtncls.add("maximized2");
+  // win.maxUnmaxWindow = function (maximize) {
+  //   if (maximize) {
+  //     // sysbtncls.add("maximized2");
 
-      if (isMac) this.setFullScreen(true);
-      else this.maximize();
-    } else {
-      // sysbtncls.remove("maximized2");
+  //     if (isMac) this.setFullScreen(true);
+  //     else this.maximize();
+  //   } else {
+  //     // sysbtncls.remove("maximized2");
 
-      if (isMac) this.setFullScreen(false);
-      else this.unmaximize();
-    }
-  }.bind(win);
+  //     if (isMac) this.setFullScreen(false);
+  //     else this.unmaximize();
+  //   }
+  // }.bind(win);
+  win.maxUnmaxWindow = win.setFullScreen;
 
   const sysbtncls = document.getElementById("sys-btns").classList;
-  if (isMac) {
-    win.on("leave-full-screen", () => {
-      sysbtncls.remove("maximized2");
-    });
-    win.on("enter-full-screen", () => {
-      sysbtncls.add("maximized2");
-    });
-  } else {
-    win.on("maximize", () => {
-      sysbtncls.add("maximized2");
-    });
-    win.on("unmaximize", () => {
-      sysbtncls.remove("maximized2");
-    });
-  }
+  // if (isMac) {
+  //   win.on("leave-full-screen", () => {
+  //     sysbtncls.remove("maximized2");
+  //   });
+  //   win.on("enter-full-screen", () => {
+  //     sysbtncls.add("maximized2");
+  //   });
+  // } else {
+  //   win.on("maximize", () => {
+  //     sysbtncls.add("maximized2");
+  //   });
+  //   win.on("unmaximize", () => {
+  //     sysbtncls.remove("maximized2");
+  //   });
+  // }
+  win.on("leave-full-screen", () => {
+    sysbtncls.remove("maximized2");
+  });
+  win.on("enter-full-screen", () => {
+    sysbtncls.add("maximized2");
+  });
 
   win.minimize2 = function () {
     if (this.isFullScreen()) {
@@ -80,8 +87,17 @@ function handleWindowControls() {
     }
   }.bind(win);
 
+  win.toggleMaxUnmax = function () {
+    if (this.isMaximized() || this.isFullScreen()) {
+      this.maxUnmaxWindow(false);
+      this.unmaximize();
+    } else {
+      this.maximize();
+    }
+  }.bind(win);
+
   document.querySelector("#drag-region").addEventListener("dblclick", () => {
-    win.maximize2();
+    win.toggleMinMax();
   });
 
   document.getElementById("min-button").addEventListener("click", (event) => {

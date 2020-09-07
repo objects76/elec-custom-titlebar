@@ -32,35 +32,38 @@ function handleWindowControls() {
   }
 
   // Make minimise/maximise/restore/close buttons work when they are clicked
-  win.maxUnmaxWindow = (maximize) => {
+  win.maxUnmaxWindow = function (maximize) {
     if (maximize) {
       sysbtncls.add("maximized2");
 
-      if (isMac) win.setFullScreen(true);
-      else win.maximize();
+      if (isMac) this.setFullScreen(true);
+      else this.maximize();
     } else {
       sysbtncls.remove("maximized2");
 
-      if (isMac) win.setFullScreen(false);
-      else win.unmaximize();
+      if (isMac) this.setFullScreen(false);
+      else this.unmaximize();
     }
-  };
+  }.bind(win);
 
-  win.minimize2 = () => {
-    if (win.isFullScreen()) {
-      win.maxUnmaxWindow(false);
-      win.once("leave-full-screen", () => win.minimize());
-    } else win.minimize();
-  };
-
-  win.maximize2 = () => {
-    if (isMac) {
-      win.isMaximized() ? win.unmaximize() : win.maximize();
-      if (win.isFullScreen()) win.maxUnmaxWindow(false);
+  win.minimize2 = function () {
+    if (this.isFullScreen()) {
+      this.maxUnmaxWindow(false);
+      this.once("leave-full-screen", () => this.minimize());
     } else {
-      win.maxUnmaxWindow(sysbtncls.contains("maximized2") == false);
+      this.minimize();
     }
-  };
+  }.bind(win);
+
+  win.maximize2 = function () {
+    if (isMac) {
+      this.isMaximized() ? this.unmaximize() : this.maximize();
+      if (this.isFullScreen()) this.maxUnmaxWindow(false);
+    } else {
+      this.maxUnmaxWindow(sysbtncls.contains("maximized2") == false);
+    }
+  }.bind(win);
+
   document.querySelector("#drag-region").addEventListener("dblclick", () => {
     win.maximize2();
   });
